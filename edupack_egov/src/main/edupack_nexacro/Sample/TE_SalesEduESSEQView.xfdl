@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <Form id="TE_SalesEduESSEQView" width="976" height="520" titletext="전체 명단보기" cssclass="frm_popBg" onload="TE_SalesEduESSEQView_onload">
+    <Layouts>
+      <Layout height="520" mobileorientation="landscape" width="976">
+        <Button id="btn_Close" taborder="0" top="10" width="15" height="15" right="10" cssclass="btn_POP_Cls" onclick="comm_Click" escapebutton="true"/>
+        <Static id="stc_BottomFrame" taborder="1" left="2" height="38" right="1" bottom="2" cssclass="sta_POP_BtnBg" text=""/>
+        <Grid id="grd_TotalView" taborder="2" left="10" top="44" width="957" height="428" autofittype="col" binddataset="dsTotalView" cellmovingtype="col" cellsizingtype="col">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="45"/>
+                <Column size="81"/>
+                <Column size="165"/>
+                <Column size="82"/>
+                <Column size="83"/>
+                <Column size="178"/>
+                <Column size="292"/>
+                <Column size="83"/>
+                <Column size="74"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="번호"/>
+                <Cell col="1" text="이름"/>
+                <Cell col="2" text="회사명"/>
+                <Cell col="3" text="부서"/>
+                <Cell col="4" text="직책"/>
+                <Cell col="5" text="연락번호"/>
+                <Cell col="6" text="E_MAIL"/>
+                <Cell col="7" text="등록자"/>
+                <Cell col="8" text="상태"/>
+              </Band>
+              <Band id="body">
+                <Cell text="expr:currow + 1"/>
+                <Cell col="1" text="bind:EMP_NAME"/>
+                <Cell col="2" text="bind:COMPANY_NAME"/>
+                <Cell col="3" text="bind:DEPT_NAME"/>
+                <Cell col="4" text="bind:DUTY_NAME"/>
+                <Cell col="5" text="bind:PHONE_NO"/>
+                <Cell col="6" text="bind:EMAIL"/>
+                <Cell col="7" text="bind:EMP_NAME2"/>
+                <Cell col="8" combodataset="ds_CD_EDU_STATUS" combocodecol="CODE" combodatacol="CAPTION" text="bind:STATUS_CD" displaytype="combotext"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static00" taborder="3" text="전체 명단보기" left="8" top="5" width="117" height="22" color="white" cssclass="sta_POP_Title"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/************************************************************************************************
+* 01. 업무구분 : 공통 - 공통
+* 02. 화면명   : 교육 등록 ()
+* 03. 화면설명 : 
+* 04. 작성일   : 2018.10.15
+* 05. 작성자   : 안주환
+* 06. 수정이력 :
+***********************************************************************************************
+*     수정일          이  름    사유
+***********************************************************************************************
+*     
+************************************************************************************************/
+
+/************************************************************************************************
+* 공통 라이브러리 INCLUDE 영역
+************************************************************************************************/
+include "Script::CommSystem.xjs";
+include "Script::CommTrans.xjs";
+include "Script::CommUtil.xjs"; 	
+include "Script::CommGrid.xjs";
+
+/************************************************************************************************
+* 전역 변수 영역
+************************************************************************************************/
+
+/************************************************************************************************
+* FORM 영역
+************************************************************************************************/
+this.TE_SalesEduESSEQView_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnCompInit(obj); //헤더클릭 이벤트 없을 시 사용
+	this.fnFormInit();
+};
+
+/************************************************************************************************
+* FORM 공통 FUNCTION 영역
+************************************************************************************************/
+this.fnFormInit = function()
+{
+	this.fnGetCode();
+	this.fnTotalView(this.parent.Product_Name, this.parent.Product_Discrimination);
+};
+
+/************************************************************************************************
+* TRANSACTION 및 추가 FUNCTION 영역
+************************************************************************************************/
+this.fnGetCode = function()
+{
+	this.gfnAddCodeDataset("ds_CD_EDU_STATUS" 			,"EDU_STATUS");
+	
+	// 공통코드 조회
+	this.gfnCodeTransaction();
+};
+
+this.fnTotalView = function(str1, str2)
+{
+	this.gfnAddSendParameter("EDU_PRODUCT_CODE", str1);
+	this.gfnAddSendParameter("ES_SEQ", str2);
+	
+	this.gfnAddOutputDataset("dsTotalView", "dsOutput");
+	this.gfnCommonTransaction("TotalView", "TE_EduMM_S03", this.grd_TotalView);
+};
+
+this.fnCallBack = function(strSvcID, nErrorCode, strErrorMag)
+{
+	//에러 예외처리
+	if(nErrorCode != 0) 
+	{
+		alert("strSvcID : " + strSvcID + "\n" + "nErrorCode : " + nErrorCode + "\n" + "strErrorMag : " + strErrorMag);
+		return;
+	}
+	else 
+	{
+		if(strSvcID == "TotalView")
+		{
+			
+		}
+		else if(strSvcID == "gfnGetCode")
+		{
+			
+		}
+	}
+}
+
+/************************************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+************************************************************************************************/
+this.comm_Click = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	switch(obj.name)
+	{
+		case "btn_Close" :
+			this.commUtil.popupClose();
+			break;
+	}
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsTotalView">
+        <ColumnInfo>
+          <Column id="ESL_SEQ" type="BIGDECIMAL" size="18"/>
+          <Column id="EDU_PRODUCT_CODE" type="STRING" size="20"/>
+          <Column id="ES_SEQ" type="INT" size="10"/>
+          <Column id="EMP_NAME" type="STRING" size="100"/>
+          <Column id="COMPANY_NAME" type="STRING" size="100"/>
+          <Column id="DEPT_NAME" type="STRING" size="100"/>
+          <Column id="DUTY_NAME" type="STRING" size="100"/>
+          <Column id="PHONE_NO" type="STRING" size="20"/>
+          <Column id="EMAIL" type="STRING" size="200"/>
+          <Column id="STATUS_CD" type="STRING" size="20"/>
+          <Column id="REQ_REASON" type="STRING" size="20"/>
+          <Column id="REQ_REASON_ETC" type="STRING" size="512"/>
+          <Column id="QUESTION" type="STRING" size="512"/>
+          <Column id="ATTEND_FLAG" type="STRING" size="1"/>
+          <Column id="CERTIFICATES_FLAG" type="STRING" size="1"/>
+          <Column id="CONSULTING_FLAG" type="STRING" size="1"/>
+          <Column id="MARKETING_AGREE_FLAG" type="STRING" size="1"/>
+          <Column id="INSERT_DATE" type="DATETIME" size="23"/>
+          <Column id="INSERT_EMP_NO" type="STRING" size="60"/>
+          <Column id="INSERT_DEPT_CD" type="STRING" size="60"/>
+          <Column id="INSERT_DEPT_NM" type="STRING" size="100"/>
+          <Column id="INSERT_MODEL" type="STRING" size="100"/>
+          <Column id="UPDATE_DATE" type="DATETIME" size="23"/>
+          <Column id="UPDATE_EMP_NO" type="STRING" size="60"/>
+          <Column id="UPDATE_DEPT_CD" type="STRING" size="60"/>
+          <Column id="UPDATE_DEPT_NM" type="STRING" size="100"/>
+          <Column id="UPDATE_MODEL" type="STRING" size="100"/>
+          <Column id="EMP_NAME2" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_CD_EDU_STATUS"/>
+    </Objects>
+  </Form>
+</FDL>

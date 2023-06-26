@@ -1,0 +1,620 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="TE_StudentList" width="1290" height="570" titletext="교육생조회" onload="TE_StudentList_onload">
+    <Layouts>
+      <Layout height="570" mobileorientation="landscape" width="1290">
+        <Div id="div_EduMM" taborder="0" text="" left="8" top="8" height="72" cssclass="div_WF_SchList" right="8" formscrollbartype="none none" formscrolltype="none">
+          <Layouts>
+            <Layout>
+              <Static id="stc_ProductName" taborder="0" text="교육제품" left="8" top="8" width="60" height="22" cssclass="sta_WF_DetailTit" textAlign="right"/>
+              <Combo id="cmb_ProductName" taborder="1" text="MiPlatform" left="79" top="8" width="169" height="22" innerdataset="ds_CD_EDU_PRODUCT_CODE" codecolumn="CODE" datacolumn="CAPTION" index="0" onitemchanged="div_EduMM_cmb_ProductName_onitemchanged"/>
+              <Button id="btn_Inquiry" taborder="8" text="조회" top="8" width="60" height="22" right="8" onclick="comm_Click" cssclass="btn_WF_SchText"/>
+              <Button id="btn_ExcelExport" taborder="9" text="Excel" top="8" width="68" height="22" right="136" onclick="comm_Click" cssclass="btn_WF_Excel"/>
+              <Button id="btn_CertificatePrint" taborder="10" text="수료증 출력" top="40" width="80" height="22" right="8" onclick="comm_Click"/>
+              <Button id="btn_Save" taborder="15" text="저장" top="8" width="60" height="22" right="btn_Inquiry:4" onclick="comm_Click" cssclass="btn_WF_tran"/>
+              <Static id="stc_EduMonth" taborder="7" text="교육기간" left="9" top="41" width="60" height="20" textAlign="right" cssclass="sta_WF_DetailTit"/>
+              <Combo id="cmb_SearchKind" taborder="5" text="이름" left="567" top="9" width="86" height="20" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" index="0" value="EMP_NAME">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="datacolumn">이름</Col>
+                      <Col id="codecolumn">EMP_NAME</Col>
+                    </Row>
+                    <Row>
+                      <Col id="datacolumn">회사명</Col>
+                      <Col id="codecolumn">COMPANY_NAME</Col>
+                    </Row>
+                    <Row>
+                      <Col id="datacolumn">연락번호</Col>
+                      <Col id="codecolumn">PHONE_NO</Col>
+                    </Row>
+                    <Row>
+                      <Col id="datacolumn">이메일</Col>
+                      <Col id="codecolumn">EMAIL</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Combo>
+              <Static id="stc_SearchKind" taborder="4" text="검색조건" left="497" top="9" width="60" height="20" textAlign="right" cssclass="sta_WF_DetailTit"/>
+              <Edit id="edt_SearchText" taborder="6" left="661" top="9" width="164" height="20" onkeydown="div_EduMM_edt_SearchText_onkeydown"/>
+              <Static id="stc_EduType" taborder="2" text="교육종류" left="264" top="8" width="60" height="22" cssclass="sta_WF_DetailTit" textAlign="right"/>
+              <Combo id="cmb_EduType" taborder="3" text="MiPlatform" left="334" top="8" width="153" height="22" innerdataset="ds_CD_EDU_TYPE" codecolumn="CODE" datacolumn="CAPTION" index="0" onitemchanged="div_EduMM_cmb_ProductName_onitemchanged"/>
+              <Static id="Static06" taborder="11" text="Static06" left="9" top="34" height="1" background="#c6deed" right="9"/>
+              <Calendar id="cal_Start" taborder="12" left="79" top="40" width="108" height="22" dateformat="yyyy-MM-dd" onchanged="Com_Search_onChanged"/>
+              <Static id="stc_ContractYear00" taborder="13" text="~" left="190" top="40" width="10" height="22" cssclass="sta_WF_DetailTit" textAlign="right"/>
+              <Calendar id="cal_End" taborder="14" left="207" top="40" width="108" height="22" dateformat="yyyy-MM-dd" onchanged="Com_Search_onChanged"/>
+              <Button id="btn_EmailSend" taborder="17" text="E-Mail발송" top="40" width="80" height="22" right="btn_CertificatePrint:4" onclick="comm_Click"/>
+              <Button id="btn_SMSSend" taborder="16" text="SMS발송" top="40" width="80" height="22" right="btn_EmailSend:4" onclick="comm_Click"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd_List" taborder="1" left="8" right="8" binddataset="ds_List" autofittype="col" bottom="8" top="div_EduMM:8" cellsizingtype="col" cellmovingtype="col" onheadclick="grd_List_onheadclick" oncelldblclick="grd_List_oncelldblclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="45"/>
+                <Column size="60"/>
+                <Column size="140"/>
+                <Column size="120"/>
+                <Column size="80"/>
+                <Column size="100"/>
+                <Column size="150"/>
+                <Column size="60"/>
+                <Column size="60"/>
+                <Column size="80"/>
+                <Column size="30"/>
+                <Column size="48"/>
+                <Column size="48"/>
+                <Column size="40"/>
+                <Column size="120"/>
+                <Column size="120"/>
+                <Column size="80"/>
+                <Column size="120"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="번호"/>
+                <Cell col="1" text="이름"/>
+                <Cell col="2" text="회사명"/>
+                <Cell col="3" text="부서"/>
+                <Cell col="4" text="직책"/>
+                <Cell col="5" text="연락번호"/>
+                <Cell col="6" text="E_MAIL"/>
+                <Cell col="7" text="상태"/>
+                <Cell col="8" text="수강여부"/>
+                <Cell col="9" text="수료증 출력"/>
+                <Cell col="10" edittype="checkbox" displaytype="checkboxcontrol"/>
+                <Cell col="11" text="메시지전송"/>
+                <Cell col="12" edittype="checkbox" displaytype="checkboxcontrol"/>
+                <Cell col="13" text="회차"/>
+                <Cell col="14" text="제품"/>
+                <Cell col="15" text="교육종류"/>
+                <Cell col="16" text="장소"/>
+                <Cell col="17" text="교육과정"/>
+                <Cell col="18" text="시작일"/>
+                <Cell col="19" text="종료일"/>
+                <Cell col="20" text="등록ID"/>
+              </Band>
+              <Band id="body">
+                <Cell text="expr:currow + 1"/>
+                <Cell col="1" text="bind:EMP_NAME"/>
+                <Cell col="2" text="bind:COMPANY_NAME" textAlign="left"/>
+                <Cell col="3" text="bind:DEPT_NAME" textAlign="left"/>
+                <Cell col="4" text="bind:DUTY_NAME"/>
+                <Cell col="5" text="bind:PHONE_NO" maskedittype="number" displaytype="normal"/>
+                <Cell col="6" text="bind:EMAIL"/>
+                <Cell col="7" text="bind:STATUS_NAME"/>
+                <Cell col="8" text="bind:ATTEND_FLAG" displaytype="checkboxcontrol"/>
+                <Cell col="9" colspan="2" text="bind:CERTIFICATES_FLAG" displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="11" colspan="2" edittype="checkbox" displaytype="checkboxcontrol" text="bind:SMS_FLAG"/>
+                <Cell col="13" text="bind:ES_SEQ"/>
+                <Cell col="14" text="bind:EDU_PRODUCT_NAME"/>
+                <Cell col="15" text="bind:EDU_TYPE_NAME"/>
+                <Cell col="16" text="bind:EDU_AREA"/>
+                <Cell col="17" text="bind:EDU_TYPE_DET_NAME"/>
+                <Cell col="18" text="bind:START_DATE"/>
+                <Cell col="19" text="bind:END_DATE"/>
+                <Cell col="20" text="bind:INSERT_EMP_NO" textAlign="left"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_CD_EDU_PRODUCT_CODE"/>
+      <Dataset id="ds_List" cancolumnchange="ds_List_cancolumnchange">
+        <ColumnInfo>
+          <Column id="ESL_SEQ" type="BIGDECIMAL" size="18"/>
+          <Column id="EDU_PRODUCT_CODE" type="STRING" size="20"/>
+          <Column id="ES_SEQ" type="INT" size="10"/>
+          <Column id="EMP_NAME" type="STRING" size="100"/>
+          <Column id="COMPANY_NAME" type="STRING" size="100"/>
+          <Column id="DEPT_NAME" type="STRING" size="100"/>
+          <Column id="DUTY_NAME" type="STRING" size="100"/>
+          <Column id="PHONE_NO" type="STRING" size="20"/>
+          <Column id="EMAIL" type="STRING" size="200"/>
+          <Column id="STATUS_CD" type="STRING" size="20"/>
+          <Column id="REQ_REASON" type="STRING" size="20"/>
+          <Column id="REQ_REASON_ETC" type="STRING" size="512"/>
+          <Column id="QUESTION" type="STRING" size="512"/>
+          <Column id="ATTEND_FLAG" type="STRING" size="1"/>
+          <Column id="CERTIFICATES_FLAG" type="STRING" size="1"/>
+          <Column id="CONSULTING_FLAG" type="STRING" size="1"/>
+          <Column id="MARKETING_AGREE_FLAG" type="STRING" size="1"/>
+          <Column id="INSERT_DATE" type="DATETIME" size="23"/>
+          <Column id="INSERT_EMP_NO" type="STRING" size="60"/>
+          <Column id="INSERT_DEPT_CD" type="STRING" size="60"/>
+          <Column id="INSERT_DEPT_NM" type="STRING" size="100"/>
+          <Column id="INSERT_MODEL" type="STRING" size="100"/>
+          <Column id="UPDATE_DATE" type="DATETIME" size="23"/>
+          <Column id="UPDATE_EMP_NO" type="STRING" size="60"/>
+          <Column id="UPDATE_DEPT_CD" type="STRING" size="60"/>
+          <Column id="UPDATE_DEPT_NM" type="STRING" size="100"/>
+          <Column id="UPDATE_MODEL" type="STRING" size="100"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Record">
+        <ColumnInfo>
+          <Column id="ES_SEQ" type="STRING" size="255"/>
+          <Column id="START_DATE" type="STRING" size="255"/>
+          <Column id="END_DATE" type="STRING" size="255"/>
+          <Column id="OPEN_FLAG" type="STRING" size="255"/>
+          <Column id="EDU_TYPE" type="STRING" size="255"/>
+          <Column id="EDU_TYPE_DET" type="STRING" size="255"/>
+          <Column id="EDU_AREA_CODE" type="STRING" size="255"/>
+          <Column id="ONLINE_OPEN_FLAG" type="STRING" size="255"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_Print">
+        <ColumnInfo>
+          <Column id="ESL_SEQ" type="bigdecimal" size="20"/>
+          <Column id="EDU_PRODUCT_CODE" type="string" size="20"/>
+          <Column id="ES_SEQ" type="int" size="11"/>
+          <Column id="EMP_NAME" type="string" size="100"/>
+          <Column id="COMPANY_NAME" type="string" size="100"/>
+          <Column id="DEPT_NAME" type="string" size="100"/>
+          <Column id="DUTY_NAME" type="string" size="100"/>
+          <Column id="PHONE_NO" type="string" size="20"/>
+          <Column id="EMAIL" type="string" size="200"/>
+          <Column id="STATUS_CD" type="string" size="20"/>
+          <Column id="REQ_REASON" type="string" size="20"/>
+          <Column id="REQ_REASON_ETC" type="string" size="512"/>
+          <Column id="QUESTION" type="string" size="512"/>
+          <Column id="ATTEND_FLAG" type="string" size="1"/>
+          <Column id="CERTIFICATES_FLAG" type="string" size="1"/>
+          <Column id="CONSULTING_FLAG" type="string" size="1"/>
+          <Column id="MARKETING_AGREE_FLAG" type="string" size="1"/>
+          <Column id="INSERT_DATE" type="datetime" size="23"/>
+          <Column id="INSERT_EMP_NO" type="string" size="60"/>
+          <Column id="INSERT_DEPT_CD" type="string" size="60"/>
+          <Column id="INSERT_DEPT_NM" type="string" size="100"/>
+          <Column id="INSERT_MODEL" type="string" size="100"/>
+          <Column id="UPDATE_DATE" type="datetime" size="23"/>
+          <Column id="UPDATE_EMP_NO" type="string" size="60"/>
+          <Column id="UPDATE_DEPT_CD" type="string" size="60"/>
+          <Column id="UPDATE_DEPT_NM" type="string" size="100"/>
+          <Column id="UPDATE_MODEL" type="string" size="100"/>
+          <Column id="EMP_NAME2" type="string" size="255"/>
+          <Column id="SMS_FLAG" type="string" size="1"/>
+          <Column id="EDU_PRODUCT_NAME" type="string" size="100"/>
+          <Column id="EDU_TYPE" type="string" size="20"/>
+          <Column id="EDU_TYPE_NAME" type="string" size="100"/>
+          <Column id="EDU_TYPE_DET" type="string" size="20"/>
+          <Column id="EDU_TYPE_DET_NAME" type="string" size="100"/>
+          <Column id="START_DATE" type="string" size="10"/>
+          <Column id="END_DATE" type="string" size="10"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_SMSSeder"/>
+      <Dataset id="ds_CD_EDU_TYPE"/>
+      <Dataset id="dsOutput_Reference">
+        <ColumnInfo>
+          <Column id="ESL_SEQ" type="BIGDECIMAL" size="18"/>
+          <Column id="EDU_PRODUCT_CODE" type="STRING" size="20"/>
+          <Column id="ES_SEQ" type="INT" size="10"/>
+          <Column id="EMP_NAME" type="STRING" size="100"/>
+          <Column id="COMPANY_NAME" type="STRING" size="100"/>
+          <Column id="DEPT_NAME" type="STRING" size="100"/>
+          <Column id="DUTY_NAME" type="STRING" size="100"/>
+          <Column id="PHONE_NO" type="STRING" size="20"/>
+          <Column id="EMAIL" type="STRING" size="200"/>
+          <Column id="STATUS_CD" type="STRING" size="20"/>
+          <Column id="REQ_REASON" type="STRING" size="20"/>
+          <Column id="REQ_REASON_ETC" type="STRING" size="512"/>
+          <Column id="QUESTION" type="STRING" size="512"/>
+          <Column id="ATTEND_FLAG" type="STRING" size="1"/>
+          <Column id="CERTIFICATES_FLAG" type="STRING" size="1"/>
+          <Column id="CONSULTING_FLAG" type="STRING" size="1"/>
+          <Column id="MARKETING_AGREE_FLAG" type="STRING" size="1"/>
+          <Column id="INSERT_DATE" type="DATETIME" size="23"/>
+          <Column id="INSERT_EMP_NO" type="STRING" size="60"/>
+          <Column id="INSERT_DEPT_CD" type="STRING" size="60"/>
+          <Column id="INSERT_DEPT_NM" type="STRING" size="100"/>
+          <Column id="INSERT_MODEL" type="STRING" size="100"/>
+          <Column id="UPDATE_DATE" type="DATETIME" size="23"/>
+          <Column id="UPDATE_EMP_NO" type="STRING" size="60"/>
+          <Column id="UPDATE_DEPT_CD" type="STRING" size="60"/>
+          <Column id="UPDATE_DEPT_NM" type="STRING" size="100"/>
+          <Column id="UPDATE_MODEL" type="STRING" size="100"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_SendSMS">
+        <ColumnInfo>
+          <Column id="EMP_NAME" type="STRING" size="256"/>
+          <Column id="PHONE_NO" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_EmailSend">
+        <ColumnInfo>
+          <Column id="EMP_NAME" type="STRING" size="256"/>
+          <Column id="EMAIL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/************************************************************************************************
+* 01. 업무구분 : 
+* 02. 화면명   : 교육생 조회 (TE_StudentList)
+* 03. 화면설명 : 
+* 04. 작성일   : 
+* 05. 작성자   : 
+* 06. 수정이력 :
+***********************************************************************************************
+*     수정일          이  름    사유
+***********************************************************************************************
+*     
+************************************************************************************************/
+
+/************************************************************************************************
+* 공통 라이브러리 INCLUDE 영역
+************************************************************************************************/
+include "Script::CommSystem.xjs";
+include "Script::CommTrans.xjs";
+include "Script::CommUtil.xjs"; 	
+include "Script::CommGrid.xjs";
+include "Script::ext_Report.xjs";
+
+/************************************************************************************************
+* 전역 변수 영역
+************************************************************************************************/
+
+/************************************************************************************************
+* FORM 영역
+************************************************************************************************/
+this.TE_StudentList_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnCompInit(obj);
+	this.fnFormInit();
+};
+
+/************************************************************************************************
+* FORM 공통 FUNCTION 영역
+************************************************************************************************/
+this.fnFormInit = function()
+{
+	this.fnGetCode();
+	
+	var sToday = this.gfnToday();
+	this.div_EduMM.form.cal_Start.set_value(this.gfnAddMonth(sToday, -1));
+	this.div_EduMM.form.cal_End.set_value(sToday);
+}
+
+/************************************************************************************************
+* TRANSACTION 및 추가 FUNCTION 영역
+************************************************************************************************/
+this.fnGetCode = function()
+{
+	this.gfnAddCodeDataset("ds_CD_EDU_PRODUCT_CODE" ,"EDU_PRODUCT_CODE", true);
+	this.gfnAddCodeDataset("ds_CD_EDU_TYPE" ,"EDU_TYPE", true);
+	this.gfnCodeTransaction();
+};
+
+this.fnSearch = function()
+{
+	if(this.gfnIsEmpty(this.div_EduMM.form.edt_SearchText.value))
+	{
+		this.alert("검색조건을 입력하세요");
+		this.div_EduMM.form.edt_SearchText.setFocus();
+		return;
+	}
+	
+	if(this.div_EduMM.form.cmb_ProductName.index>0)
+		this.gfnAddSendParameter("EDU_PRODUCT_CODE", this.div_EduMM.form.cmb_ProductName.value);
+	if(this.div_EduMM.form.cmb_EduType.index>0)
+		this.gfnAddSendParameter("EDU_TYPE", this.div_EduMM.form.cmb_EduType.value);
+	this.gfnAddSendParameter("START_DATE", this.div_EduMM.form.cal_Start.value); //this.div_EduMM.form.div_Search_yyyyMM_FromTo.getFromYYYYMM());
+	this.gfnAddSendParameter("END_DATE", this.div_EduMM.form.cal_End.value); //this.div_EduMM.form.div_Search_yyyyMM_FromTo.getToYYYYMM());
+	this.gfnAddSendParameter(this.div_EduMM.form.cmb_SearchKind.value, this.div_EduMM.form.edt_SearchText.value);
+	
+	this.gfnAddOutputDataset("ds_List", "dsOutput");
+	this.gfnCommonTransaction("Select", "TE_StudentList_S01", this.grd_List);
+};
+
+this.fnSave = function()
+{	
+	this.gfnAddInputDataset("ds_List", "dsInput");
+	this.gfnCommonTransaction("Save", "TE_EduMM_R04");
+};
+
+this.fnCallBack = function(strSvcID, nErrorCode, strErrorMag)
+{
+	//에러 예외처리
+	if(nErrorCode != 0) 
+	{
+		alert("strSvcID : " + strSvcID + "\n" + "nErrorCode : " + nErrorCode + "\n" + "strErrorMag : " + strErrorMag);
+		return;
+	}
+	else 
+	{
+		if(strSvcID == "gfnGetCode")
+		{
+			this.div_EduMM.form.cmb_ProductName.set_index(0);
+			this.div_EduMM.form.cmb_EduType.set_index(0);
+		}
+		else if(strSvcID == "Select")
+		{
+		
+		}
+	}
+}
+
+/************************************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+************************************************************************************************/
+this.comm_Click = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	switch(obj.name)
+	{
+		case "btn_CertificatePrint" :
+			if(this.ds_List.rowcount <= 0)
+			{
+				this.alert("출력할 데이터가 없습니다.!!");
+				return;
+			}
+			else
+			{
+				/*교육 발신자 조회*/
+				this.gfnAddSendParameter("FRM_SEQ",	"268");
+				this.gfnAddSendParameter("FRMA_SEQ_IN",	"1");
+				this.gfnAddOutputDataset("ds_SMSSeder",	"dsOutput");
+				this.gfnCommonTransaction("SelectEmpInfo", "CO_FindFormAuthEmp_S01", null, false);
+
+				var strEmpNo = this.ds_SMSSeder.getColumn(0,"EMP_NO");
+				var strEmpName = this.ds_SMSSeder.getColumn(0,"EMP_NAME");
+				var strTelNo = this.ds_SMSSeder.getColumn(0,"OFFICE_TEL_NO");
+				var strEamil = this.ds_SMSSeder.getColumn(0,"EMAIL");
+				
+				//사용자가 창을 닫고 다시 눌렀을 시에 데이터 초기화 작업.
+				this.ds_Print.clearData();
+				
+				//수료증 출력 대상자에 대한 Dataset추출
+				for(var i = 0; i<this.ds_List.rowcount; i++)
+				{
+					if(this.ds_List.getColumn(i, "CERTIFICATES_FLAG") == 1)
+					{
+						var nRow = this.ds_Print.addRow();
+						this.ds_Print.copyRow(nRow, this.ds_List, i);
+					}
+				}
+				
+				var sArgument = {dsPrint : this.ds_Print
+						,Office_TelNo : strTelNo
+						,Send_Eamil : strEamil};
+				this.commUtil.popup(this, "TE_CertificateInfoReg", "Technique::TE_CertificateInfoReg.xfdl", -1, -1, null, null, true, true, false, sArgument, "fnPopupCallBack");
+			}
+			break;
+		case "btn_Inquiry" : 
+			this.fnSearch();
+			break;
+		case "btn_ExcelExport" : 
+			this.gfn_excelExport(this, this.grd_List);
+			break;
+		case "btn_Save" :
+			this.fnSave();
+			break; 
+		case "btn_SMSSend" :
+			if(this.ds_List.rowcount <= 0)
+			{
+				this.alert("발송 상대가 지정되지 않았습니다.");
+				return;
+			}
+			else
+			{
+				this.fnSend(obj.name);
+			}
+			break;			
+		case "btn_EmailSend" : 
+			if(this.ds_List.rowcount <= 0)
+			{
+				this.alert("발송 상대가 지정되지 않았습니다.");
+				return;
+			}
+			{
+				this.fnSend(obj.name);
+			}
+			break;
+	}
+};
+
+this.fnPopupCallBack = function (popupId, popupArg)
+{	
+	popupArg = this.commUtil.popupReturn();
+	
+	switch(popupId)
+	{
+		case "TE_CertificateInfoReg" : 
+			break;
+		default:
+			break;
+	}
+};
+
+this.grd_List_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if(e.col == 10) //수료증 출력
+	{
+		var strValue = obj.getCellProperty("head", e.cell, "text")==1?0:1;
+		
+		obj.setCellProperty("head", e.cell, "text", strValue);
+		for(var i=0; i<this.ds_List.rowcount; i++)
+		{
+			if(this.ds_List.getColumn(i, "ATTEND_FLAG")=="1")
+				this.ds_List.setColumn(i, "CERTIFICATES_FLAG", strValue);
+		}
+	}
+	else if(e.col == 12 ) //12 메세지 전송
+	{
+		var strValue = obj.getCellProperty("head", e.cell, "text")==1?0:1;
+		
+		obj.setCellProperty("head", e.cell, "text", strValue);
+		for(var i=0; i<this.ds_List.rowcount; i++)
+		{
+			this.ds_List.setColumn(i, "SMS_FLAG", strValue);
+		}
+	}	
+	else
+	{
+		this.gfnGridProcSort(obj, e.cell);  //헤더클릭 이벤트 있을 시 사용	
+	}
+};
+
+this.div_EduMM_edt_SearchText_onkeydown = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode==13)
+		this.fnSearch();
+};
+
+this.ds_List_cancolumnchange = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	if(e.columnid=="CERTIFICATES_FLAG" && obj.getColumn(e.row, "ATTEND_FLAG")=="0")
+		return false;
+};
+
+this.grd_List_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+		this.dsOutput_Reference.clearData();
+		
+		var nRow = this.dsOutput_Reference.addRow();
+		this.dsOutput_Reference.copyRow(nRow, this.ds_List, e.row);
+
+		var sArgument = {
+							sParent : this.name,
+							dsOutput_Reference : this.dsOutput_Reference,
+							ESL_SEQ : this.ds_List.getColumn(e.row, "ESL_SEQ"),
+							nRow : e.row
+						};
+					
+		this.commUtil.popup(this, "TE_SalesEduReg", "Technique::TE_SalesEduReg.xfdl", -1, -1, null, null, true, true, false, sArgument, "fnPopupCallBack");
+};
+
+//TE_SalesEduReg정보 받은것을 가공할 때 사용.
+this.fnPopupCallBack = function (popupId, popupArg)
+{	
+	popupArg = this.commUtil.popupReturn();	
+	switch(popupId)
+	{
+		case "TE_SalesEduReg" :
+			if(!this.gfnIsEmpty(popupArg))
+			{
+				var dsOutput = new Dataset();
+				dsOutput.loadXML(popupArg);
+				
+				var sEslSeq = dsOutput.getColumn(0, "ESL_SEQ");				
+				if(!this.gfnIsEmpty(sEslSeq))	
+				{
+					var nRow = this.ds_List.findRow("ESL_SEQ", sEslSeq);
+					this.ds_List.copyRow(nRow, dsOutput, 0);
+				}
+			}
+			break;
+			
+		case "CS_SMSSend" : 
+			break;
+			
+		case "CE_EMailSend" : 
+			break;
+	}
+}	
+
+this.fnSend = function(type)
+{
+	/*교육 발신자 조회*/
+	this.gfnAddSendParameter("FRM_SEQ",	"268");
+	this.gfnAddSendParameter("FRMA_SEQ_IN",	"1");
+	this.gfnAddOutputDataset("ds_SMSSeder",	"dsOutput");
+	this.gfnCommonTransaction("SelectEmpInfo", "CO_FindFormAuthEmp_S01", null, false);
+
+	var strEmpNo = this.ds_SMSSeder.getColumn(0,"EMP_NO");
+	var strEmpName = this.ds_SMSSeder.getColumn(0,"EMP_NAME");
+	var strTelNo = this.ds_SMSSeder.getColumn(0,"OFFICE_TEL_NO");
+	var strEamil = this.ds_SMSSeder.getColumn(0,"EMAIL");
+		
+	if(type == "btn_SMSSend")
+	{
+		this.ds_SendSMS.clearData();
+		
+		for(var i = 0; i < this.ds_List.rowcount; i++)
+		{
+			if(this.ds_List.getColumn(i, "SMS_FLAG") == 1)
+			{
+				var nRow = this.ds_SendSMS.addRow();
+				this.ds_SendSMS.setColumn(nRow, "EMP_NAME", this.ds_List.getColumn(i, "EMP_NAME"));
+				this.ds_SendSMS.setColumn(nRow, "PHONE_NO", this.ds_List.getColumn(i, "PHONE_NO"));
+			}
+		}
+
+		if(this.ds_SMSSeder.rowcount<0)
+		{
+			alert("교육 SMS 발신자 설정이 안되었습니다.\n 정보관리팀에 문의하세요.");
+			return;
+		}
+		if(this.gfnIsEmpty(strTelNo))
+		{
+			alert(strEmpName+"님의 내선번호가 없습니다.\n 그룹웨어 개인정보 수정에서 전화번호(사무실)를 등록하세요.");
+			return;
+		}
+		var sArgument = {
+					dsInput:this.ds_SendSMS, 
+					key:"SMSSend",
+					pv_SenderType:"APPOINT",	// "SELF" (login 접속자 번호), "EMP" (지정 사번의 번호), "MAIN" (대표번호), "APPOINT"(전화번호 직접번호)
+					pv_TelKind:"T",				// "T" (내선), 	"M" (모바일)
+					pv_Sender:strTelNo,			//  발신번호 또는 사번
+					pv_SenderName:strEmpName	//  발신자명
+				   };
+				   
+		this.commUtil.popup(this, "CS_SMSSend", "Common::CS_SMSSend.xfdl", -1, -1, null, null, true, true, false, sArgument, "fnPopupCallBack");
+	}
+	else if(type == "btn_EmailSend")
+	{
+		this.ds_EmailSend.clearData();
+		
+		for(var i = 0; i < this.ds_List.rowcount; i++)
+		{
+			if(this.ds_List.getColumn(i, "SMS_FLAG") == 1)
+			{
+				var nRow = this.ds_EmailSend.addRow();
+				this.ds_EmailSend.setColumn(nRow, "EMP_NAME", this.ds_List.getColumn(i, "EMP_NAME"));
+				this.ds_EmailSend.setColumn(nRow, "EMAIL", this.ds_List.getColumn(i, "EMAIL"));
+			}
+		}
+		
+		var sArgument = {
+					dsInput:this.ds_EmailSend,
+					key:"EmailSend"
+				   };
+				   
+		this.commUtil.popup(this, "CE_EMailSend", "Common::CE_EMailSend.xfdl", -1, -1, null, null, true, true, false, sArgument, "fnPopupCallBack");
+	}
+};]]></Script>
+  </Form>
+</FDL>

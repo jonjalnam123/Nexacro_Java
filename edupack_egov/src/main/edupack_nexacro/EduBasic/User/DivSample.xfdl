@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="DivSample" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <Div id="div00" taborder="0" text="div00" left="50" top="10" width="240" height="212" background="beige">
+          <Layouts>
+            <Layout>
+              <Combo id="cbo00" taborder="0" text="cbo00" left="17" top="65" width="110" height="60"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btn00" taborder="1" text="btn00" left="60" top="29" width="120" height="21"/>
+        <Div id="div01" taborder="2" text="div01" left="330" top="20" width="224" height="195" background="aqua" url="Cmm::CmmWebpage.xfdl"/>
+        <Tab id="tab00" taborder="3" tabindex="0" left="64" top="264" width="326" height="248">
+          <Tabpages>
+            <Tabpage id="Tabpage1" text="Tabpage1">
+              <Layouts>
+                <Layout>
+                  <Button id="btn00" taborder="0" text="btn00" left="52" top="44" width="165" height="76"/>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="Tabpage2" text="Tabpage2">
+              <Layouts>
+                <Layout>
+                  <Button id="btn00" taborder="0" text="btn00" left="24" top="32" width="68" height="30"/>
+                  <Combo id="cbo00" taborder="1" text="cbo00" left="85" top="85" width="223" height="79"/>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+          </Tabpages>
+        </Tab>
+        <Tab id="tab01" taborder="4" tabindex="0" left="422" top="272" width="258" height="234" preload="false">
+          <Tabpages>
+            <Tabpage id="Tabpage1" text="Tabpage1" url="EduBasic::Application/Application_variable_scope.xfdl"/>
+            <Tabpage id="Tabpage2" text="Tabpage2" url="EduBasic::Comp/Comp_ImageViewer.xfdl"/>
+          </Tabpages>
+        </Tab>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Basic" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <Button id="btn00" taborder="0" text="btn00" left="-107" top="15" width="54" height="31" visible="true"/>
+        <Button id="btn01" taborder="1" text="btn01" left="64" top="100" width="104" height="31" visible="true"/>
+        <Button id="btn02" taborder="2" text="btn02" left="63" top="155" width="105" height="31" visible="true"/>
+        <Button id="btn03" taborder="3" text="btn03" left="64" top="205" width="104" height="31" visible="true"/>
+        <Combo id="cbo00" taborder="4" text="cbo00" left="64" top="46" width="104" height="21"/>
+        <Combo text="cbo00" width="104" height="21" id="cbo01" left="316" top="155" taborder="5"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[//코드 스니핏 - 코드 다 드래그 해서 오른쪽 버튼 하고 등록하기.(gfn)
+/****************************************************************
+/* 프로그램명 : C:\EduPack\workspace\edupack_egov\src\main\edupack_nexacro\EduBasic\User\Basic.xfdl
+/* 작성일자 : 2023/04/17
+/* 작성자 : 홍길동
+/* 간략설명 : 
+*****************************************************************/
+
+include "Lib::Lib_Comm.xjs";
+
+//코드 들여쓰기 한번에 컨트롤 a 누르고 컨트롤 에프팔
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(e.altkey)
+	{
+		alert("true");
+	} else {
+		alert("false");
+	}
+};
+
+this.div00_btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.div00.form.btn00.set_text("안녕");
+};
+]]></Script>
+  </Form>
+</FDL>

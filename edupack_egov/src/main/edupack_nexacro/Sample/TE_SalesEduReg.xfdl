@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="TE_SalesEduReg" width="532" height="208" titletext="영업 교육등록" cssclass="frm_popBg" onload="TE_SalesEduReg_onload">
+    <Layouts>
+      <Layout height="208" mobileorientation="landscape" width="532">
+        <Static id="stc_ClientReg" taborder="17" cssclass="sta_WF_detailLbl01" top="39" text="" left="4" right="6" bottom="44"/>
+        <Static id="stc_BottomFrame" taborder="10" left="1" height="38" right="1" bottom="1" cssclass="sta_POP_BtnBg" text=""/>
+        <Button id="btn_Close" taborder="9" top="10" width="15" height="15" right="9" cssclass="btn_POP_Cls" onclick="comm_Click" escapebutton="true"/>
+        <Button id="btn_Confirm" taborder="7" text="확인" width="60" height="22" cssclass="btn_WF_tran" right="78" bottom="9" onclick="comm_Click"/>
+        <Button id="btn_Cancel" taborder="8" text="취소" width="60" height="22" cssclass="btn_WF_tran" right="10" bottom="9" onclick="comm_Click"/>
+        <Static id="stc_Name" taborder="11" text="이름" left="14" top="47" width="68" height="22" cssclass="sta_WF_DetailTit" textAlign="right"/>
+        <Edit id="edt_Name" taborder="0" left="90" top="47" width="170" height="22"/>
+        <Static id="stc_Department" taborder="12" text="부서" left="14" top="77" width="68" height="22" cssclass="sta_WF_DetailTit" textAlign="right"/>
+        <Edit id="edt_Department" taborder="1" left="90" top="77" width="170" height="22"/>
+        <Edit id="edt_Telephone" taborder="2" left="90" top="107" width="170" height="22"/>
+        <Static id="stc_Telephone" taborder="13" text="연락번호" left="14" top="107" width="68" height="22" cssclass="sta_WF_DetailTit" textAlign="right"/>
+        <Static id="stc_Email" taborder="14" text="E-MAIL" left="268" top="107" width="68" height="22" cssclass="sta_WF_DetailTit" textAlign="right"/>
+        <Edit id="edt_Email" taborder="5" left="345" top="107" width="171" height="22"/>
+        <Edit id="edt_CompanyName" taborder="3" left="345" top="47" width="171" height="22"/>
+        <Static id="stc_CompanyName" taborder="15" text="회사명" left="269" top="47" width="68" height="22" cssclass="sta_WF_DetailTit" textAlign="right"/>
+        <Static id="stc_Class" taborder="16" text="직급" left="269" top="77" width="68" height="22" cssclass="sta_WF_DetailTit" textAlign="right"/>
+        <Edit id="edt_Class" taborder="4" left="345" top="77" width="171" height="22"/>
+        <Static id="Static00" taborder="18" text="교육등록" left="8" top="5" width="77" height="22" color="white" cssclass="sta_POP_Title"/>
+        <Static id="stc_LoginID" taborder="19" text="로그인ID" left="14" top="137" width="68" height="22" cssclass="sta_WF_DetailTit" textAlign="right" visible="false"/>
+        <Edit id="edt_LoginID" taborder="6" left="90" top="137" width="170" height="22" visible="false"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/************************************************************************************************
+* 01. 업무구분 : 공통 - 공통
+* 02. 화면명   : 교육 등록 ()
+* 03. 화면설명 : 
+* 04. 작성일   : 2018.10.15
+* 05. 작성자   : 안주환
+* 06. 수정이력 :
+***********************************************************************************************
+*     수정일          이  름    사유
+***********************************************************************************************
+*     
+************************************************************************************************/
+
+/************************************************************************************************
+* 공통 라이브러리 INCLUDE 영역
+************************************************************************************************/
+include "Script::CommSystem.xjs";
+include "Script::CommTrans.xjs";
+include "Script::CommUtil.xjs"; 	
+include "Script::CommGrid.xjs";
+
+/************************************************************************************************
+* 전역 변수 영역
+************************************************************************************************/
+
+/************************************************************************************************
+* FORM 영역
+************************************************************************************************/
+this.TE_SalesEduReg_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.fnFormInit();
+};
+
+/************************************************************************************************
+* FORM 공통 FUNCTION 영역
+************************************************************************************************/
+this.fnFormInit = function()
+{	
+	if(this.parent.sParent=="TE_StudentList")
+	{
+		this.edt_LoginID.set_visible(true);
+		this.stc_LoginID.set_visible(true);
+	}
+	if(!this.gfnIsEmpty(this.parent.ESL_SEQ)){ //수강생 리스트 그리드를 더블클릭 했을 시 
+		this.dsOutput.assign(this.parent.dsOutput_Reference);
+		}
+	else									  //신규버튼 클릭 시 && ESL_SEQ가 아직 추가안된 상태로 수강생 리스트 그리드를 더블클릭 했을 시    
+	{									  
+		if(this.gfnIsEmpty(this.parent.dsOutput_Reference)) {
+			var nRow = this.dsOutput.addRow();
+			
+			//Table에 NotNull인 것 강제 맵핑
+			this.dsOutput.setColumn(nRow, "EDU_PRODUCT_CODE", this.parent.Product_Name);
+			this.dsOutput.setColumn(nRow, "ES_SEQ", this.parent.ES_SEQ);
+			this.dsOutput.setColumn(nRow, "STATUS_CD", "5");
+			
+			this.dsOutput.setColumn(nRow, "ATTEND_FLAG", "0");
+			this.dsOutput.setColumn(nRow, "CERTIFICATES_FLAG", "0");
+			this.dsOutput.setColumn(nRow, "CONSULTING_FLAG", "0");
+			this.dsOutput.setColumn(nRow, "MARKETING_AGREE_FLAG", "0");	
+			this.dsOutput.setColumn(nRow, "SALES_EMP_NAME", nexacro.getApplication().gdsUserInfo.getColumn(0, "EMP_NM"));
+		}
+		else
+		{
+			this.dsOutput.assign(this.parent.dsOutput_Reference);
+		}
+	}
+};
+
+this.fnValidation = function()
+{	
+	if(this.gfnIsEmpty(this.edt_Name.value))
+	{
+		return false;
+	}
+	else if(this.gfnIsEmpty(this.edt_Telephone.value))
+	{
+		return false;
+	}
+	else if(this.gfnIsEmpty(this.edt_Email.value))
+	{
+		return false;
+	}
+	return true;
+};
+
+/************************************************************************************************
+* TRANSACTION 및 추가 FUNCTION 영역
+************************************************************************************************/
+this.fnCallBack = function(strSvcID, nErrorCode, strErrorMag)
+{
+	//에러 예외처리
+	if(nErrorCode != 0) 
+	{
+		alert("strSvcID : " + strSvcID + "\n" + "nErrorCode : " + nErrorCode + "\n" + "strErrorMag : " + strErrorMag);
+		return;
+	}
+	else 
+	{
+		
+	}
+}
+
+
+/************************************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+************************************************************************************************/
+this.comm_Click = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	switch(obj.name)
+	{
+		case "btn_Confirm" : 
+			if(this.fnValidation())
+			{
+				if(this.gfnIsEmpty(this.dsOutput.getColumn(0, "ESL_SEQ")))
+				{				
+					this.dsOutput.addColumn("NEW_ESL_SEQ", "STRING", 100);
+					this.dsOutput.setColumn(0, "NEW_ESL_SEQ", this.parent.nRow); //부모창에서 더블클릭한 그리드 행번호가 넘어옴(nRow : ESL_SEQ값이 없을때를 대비하여 넘긴 값)
+				}
+					
+				this.commUtil.popupClose(this.dsOutput);				
+			}
+			break;
+		case "btn_Cancel" : 
+			this.commUtil.popupClose();
+			break;
+		case "btn_Close" : 
+			this.commUtil.popupClose();
+			break;
+	}
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="edt_Name" propid="value" datasetid="dsOutput" columnid="EMP_NAME"/>
+      <BindItem id="item1" compid="edt_Department" propid="value" datasetid="dsOutput" columnid="DEPT_NAME"/>
+      <BindItem id="item2" compid="edt_Telephone" propid="value" datasetid="dsOutput" columnid="PHONE_NO"/>
+      <BindItem id="item3" compid="edt_Email" propid="value" datasetid="dsOutput" columnid="EMAIL"/>
+      <BindItem id="item4" compid="edt_CompanyName" propid="value" datasetid="dsOutput" columnid="COMPANY_NAME"/>
+      <BindItem id="item5" compid="edt_Class" propid="value" datasetid="dsOutput" columnid="DUTY_NAME"/>
+      <BindItem id="item6" compid="edt_LoginID" propid="value" datasetid="dsOutput" columnid="INSERT_EMP_NO"/>
+    </Bind>
+    <Objects>
+      <Dataset id="dsOutput">
+        <ColumnInfo>
+          <Column id="ESL_SEQ" type="BIGDECIMAL" size="18"/>
+          <Column id="EDU_PRODUCT_CODE" type="STRING" size="20"/>
+          <Column id="ES_SEQ" type="INT" size="10"/>
+          <Column id="EMP_NAME" type="STRING" size="100"/>
+          <Column id="COMPANY_NAME" type="STRING" size="100"/>
+          <Column id="DEPT_NAME" type="STRING" size="100"/>
+          <Column id="DUTY_NAME" type="STRING" size="100"/>
+          <Column id="PHONE_NO" type="STRING" size="20"/>
+          <Column id="EMAIL" type="STRING" size="200"/>
+          <Column id="STATUS_CD" type="STRING" size="20"/>
+          <Column id="REQ_REASON" type="STRING" size="20"/>
+          <Column id="REQ_REASON_ETC" type="STRING" size="512"/>
+          <Column id="QUESTION" type="STRING" size="512"/>
+          <Column id="ATTEND_FLAG" type="STRING" size="1"/>
+          <Column id="CERTIFICATES_FLAG" type="STRING" size="1"/>
+          <Column id="CONSULTING_FLAG" type="STRING" size="1"/>
+          <Column id="MARKETING_AGREE_FLAG" type="STRING" size="1"/>
+          <Column id="INSERT_DATE" type="DATETIME" size="23"/>
+          <Column id="INSERT_EMP_NO" type="STRING" size="60"/>
+          <Column id="INSERT_DEPT_CD" type="STRING" size="60"/>
+          <Column id="INSERT_DEPT_NM" type="STRING" size="100"/>
+          <Column id="INSERT_MODEL" type="STRING" size="100"/>
+          <Column id="UPDATE_DATE" type="DATETIME" size="23"/>
+          <Column id="UPDATE_EMP_NO" type="STRING" size="60"/>
+          <Column id="UPDATE_DEPT_CD" type="STRING" size="60"/>
+          <Column id="UPDATE_DEPT_NM" type="STRING" size="100"/>
+          <Column id="UPDATE_MODEL" type="STRING" size="100"/>
+          <Column id="SALES_EMP_NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

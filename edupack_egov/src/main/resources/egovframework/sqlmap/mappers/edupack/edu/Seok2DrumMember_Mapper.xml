@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.edupack.edu.service.mapper.Seok2DrumMemberMapper">
+
+	<insert id="insertMember" parameterType="map">
+		INSERT INTO
+		tbl_seokmember (USERID, PASSWORD, NAME, PHONE, ADR, ADRD, EMAIL)
+		VALUES
+		(#{USERID},#{PASSWORD},#{NAME},#{PHONE},#{ADR},#{ADRD},#{EMAIL})
+	</insert>
+
+	<update id="updateMember" parameterType="map">
+		UPDATE tbl_seokmember
+		SET USERID = #{USERID}
+		, PASSWORD = #{PASSWORD}
+		, NAME = #{NAME}
+		, PHONE = #{PHONE}
+		, ADR = #{ADR}
+		, ADRD = #{ADRD}
+		, EMAIL = #{EMAIL}
+		WHERE USERID = #{USERID}
+	</update>
+
+	<delete id="deleteMember" parameterType="map">
+		DELETE FROM
+		tbl_seokmember WHERE USERID = #{USERID}
+	</delete>
+
+	<select id="checkMemberID" parameterType="String" resultType="int">
+		SELECT COUNT(*) AS CNT FROM tbl_seokmember WHERE USERID = #{USERID}
+	</select>
+
+
+	<select id="checkLoginIDPW" parameterType="String" resultType="int">
+		SELECT COUNT(*) AS CNT FROM tbl_seokmember WHERE USERID = #{param1} AND PASSWORD = #{param2}
+	</select>
+
+	<select id="selectGetFindId" parameterType="String" resultType="map">
+		SELECT USERID FROM tbl_seokmember WHERE NAME = #{param1}
+		AND EMAIL = #{param2}
+	</select>
+
+	<select id="selectPwFind" parameterType="String" resultType="map">
+		SELECT PASSWORD FROM tbl_seokmember WHERE USERID =#{param1}
+		AND PHONE =#{param2}
+	</select>
+
+	<select id="selectUser" parameterType="String" resultType="map">
+		SELECT * FROM tbl_seokmember WHERE USERID = #{param1}
+	</select>
+
+	<select id="contactBoardList" parameterType="map" resultType="map">
+		<include refid="pagingComm.pagingFront"></include>
+		<!--  (SELECT a.*,
+		 	IFNULL((SELECT COUNT(*) as REP_CNT FROM tbl_seokadmcontrep where CONBOARD_NO = a.CONBOARD_NO),0) AS REP_CNT, 1 as ORDER_KEY
+ 			FROM tbl_seokcontactboard a
+ 			WHERE USERID = 'Admin' LIMIT 10)
+ 			UNION ALL 	
+		SELECT a.*,
+		 	IFNULL((SELECT COUNT(*) as REP_CNT FROM tbl_seokadmcontrep where CONBOARD_NO = a.CONBOARD_NO),0) AS REP_CNT,2 as ORDER_KEY
+ 			FROM tbl_seokcontactboard a 
+ 			WHERE  USERID NOT IN ('Admin') -->
+ 			
+ 		SELECT CONBOARD_NO, MIN(ORDER_KEY) AS ORDER_KEY,
+				MAX(CONBOARD_TITLE) AS CONBOARD_TITLE,
+				MAX(CONBOARD_CONTENT) AS CONBOARD_CONTENT,
+				MAX(CONBOARD_HIT) AS CONBOARD_HIT,
+				MAX(CONBOARD_WRITEDATE) AS CONBOARD_WRITEDATE,
+				MAX(USERID) AS USERID,
+				MAX(REP_CNT) AS REP_CNT,
+				MAX(NAME) AS NAME
+	    FROM (		
+ 	 			(SELECT 1 as ORDER_KEY,
+					a.CONBOARD_NO,
+					a.CONBOARD_TITLE,
+					a.CONBOARD_CONTENT,
+					a.CONBOARD_HIT,
+					a.CONBOARD_WRITEDATE,
+					a.USERID,
+					a.NAME,
+					IFNULL((SELECT COUNT(*) as REP_CNT FROM tbl_seokadmcontrep where CONBOARD_NO = a.CONBOARD_NO),0) AS REP_CNT
+ 			FROM tbl_seokcontactboard a
+ 			WHERE USERID = 'Admin'  LIMIT 3)
+ 			UNION  	
+			(SELECT 2 as ORDER_KEY,
+				b.CONBOARD_NO,
+					b.CONBOARD_TITLE,
+					b.CONBOARD_CONTENT,
+					b.CONBOARD_HIT,
+					b.CONBOARD_WRITEDATE,
+					b.USERID,
+					b.NAME,
+					IFNULL((SELECT COUNT(*) as REP_CNT FROM tbl_seokadmcontrep where CONBOARD_NO = b.CONBOARD_NO),0) AS REP_CNT
+ 			FROM tbl_seokcontactboard b
+ 			<if test='CONBOARD_TITLE !="" and CONBOARD_TITLE != null'>
+				WHERE b.CONBOARD_TITLE like concat('%',#{CONBOARD_TITLE},'%')
+			</if>
+ 			)
+   			) AA 			
+			GROUP BY  CONBOARD_NO
+			ORDER BY ORDER_KEY,CONBOARD_NO desc
+		<!--ORDER BY ORDER_KEY, CONBOARD_NO-->
+		<include refid="pagingComm.pagingEnd"></include>
+	</select>
+
+	<select id="seok2DrumrePage" parameterType="map" resultType="map">
+		SELECT count(*) as cnt FROM tbl_seokcontactboard
+		<where>
+			<if test='CONBOARD_TITLE !="" and CONBOARD_TITLE != null'>
+				AND CONBOARD_TITLE like concat('%',#{CONBOARD_TITLE},'%')
+			</if>
+		</where>
+	</select>
+
+
+	<select id="contactComBoardList" parameterType="map" resultType="map">
+		<include refid="pagingComm.pagingFront"></include>
+		SELECT COMBOARD_NO, MIN(ORDER_KEY) AS ORDER_KEY,
+				MAX(COMBOARD_TITLE) AS COMBOARD_TITLE,
+				MAX(COMBOARD_CONTENT) AS COMBOARD_CONTENT,
+				MAX(COMBOARD_HIT) AS COMBOARD_HIT,
+				MAX(COMBOARD_WRITEDATE) AS COMBOARD_WRITEDATE,
+				MAX(USERID) AS USERID,
+				MAX(REP_CNT) AS REP_CNT,
+				MAX(NAME) AS NAME
+ 		FROM (		
+ 	   (SELECT 1 as ORDER_KEY,
+					a.COMBOARD_NO,
+					a.COMBOARD_TITLE,
+					a.COMBOARD_CONTENT,
+					a.COMBOARD_HIT,
+					a.COMBOARD_WRITEDATE,
+					a.USERID,
+					a.NAME,
+					IFNULL((SELECT COUNT(*) as REP_CNT FROM tbl_seokcomurep where COMBOARD_NO = a.COMBOARD_NO),0) AS REP_CNT
+ 			FROM tbl_seokcommuboard a
+ 			WHERE USERID = 'Admin'  LIMIT 3)
+ 			UNION  	
+		(SELECT 2 as ORDER_KEY,
+				b.COMBOARD_NO,
+					b.COMBOARD_TITLE,
+					b.COMBOARD_CONTENT,
+					b.COMBOARD_HIT,
+					b.COMBOARD_WRITEDATE,
+					b.USERID,
+					b.NAME,
+					IFNULL((SELECT COUNT(*) as REP_CNT FROM tbl_seokcomurep where COMBOARD_NO = b.COMBOARD_NO),0) AS REP_CNT
+ 			FROM tbl_seokcommuboard b
+ 		<if test='COMBOARD_TITLE !="" and COMBOARD_TITLE != null'>
+			WHERE b.COMBOARD_TITLE like concat('%',#{COMBOARD_TITLE},'%')
+		</if>
+		)
+   		) AA
+		GROUP BY  COMBOARD_NO
+		ORDER BY ORDER_KEY,COMBOARD_NO DESC
+		<include refid="pagingComm.pagingEnd"></include>
+	</select>
+
+	<select id="seok2DrumReComPage" parameterType="map"
+		resultType="map">
+		SELECT count(*) as cnt FROM tbl_seokcommuboard
+		<where>
+			<if test='COMBOARD_TITLE !="" and COMBOARD_TITLE != null'>
+				AND COMBOARD_TITLE like concat('%',#{COMBOARD_TITLE},'%')
+			</if>
+		</where>
+	</select>
+
+	<insert id="conBoardWrite" parameterType="map">
+		<selectKey resultType="string" keyProperty="CONBOARD_NO" order="BEFORE">
+			SELECT MAX(CONBOARD_NO)+1 FROM tbl_seokcontactboard
+		</selectKey>
+		INSERT INTO tbl_seokcontactboard (CONBOARD_NO, CONBOARD_TITLE,CONBOARD_CONTENT,USERID,NAME)
+		VALUES
+		(#{CONBOARD_NO},#{CONBOARD_TITLE},#{CONBOARD_CONTENT},#{USERID},#{NAME})
+	</insert>
+
+	<update id="conBoardUpdate" parameterType="map">
+		UPDATE
+		tbl_seokcontactboard
+		SET CONBOARD_TITLE = #{CONBOARD_TITLE}
+		,
+		CONBOARD_CONTENT = #{CONBOARD_CONTENT}
+		, CONBOARD_HIT = #{CONBOARD_HIT}
+		WHERE CONBOARD_NO = #{CONBOARD_NO}
+	</update>
+
+	<delete id="conBoardDelete" parameterType="map">
+		DELETE FROM
+		tbl_seokcontactboard WHERE CONBOARD_NO = #{CONBOARD_NO}
+	</delete>
+
+	<insert id="comBoardWrite" parameterType="map">
+		INSERT INTO
+		tbl_seokcommuboard (COMBOARD_NO, USERID,COMBOARD_TITLE, COMBOARD_CONTENT,NAME)
+		VALUES (#{COMBOARD_NO}, #{USERID},#{COMBOARD_TITLE},#{COMBOARD_CONTENT},#{NAME})
+	</insert>
+
+	<update id="comBoardUpdate" parameterType="map">
+		UPDATE
+		tbl_seokcommuboard
+		SET COMBOARD_TITLE = #{COMBOARD_TITLE},
+		COMBOARD_CONTENT = #{COMBOARD_CONTENT}, 
+		COMBOARD_HIT = #{COMBOARD_HIT}
+		WHERE COMBOARD_NO = #{COMBOARD_NO}
+	</update>
+
+	<delete id="comBoardDelete" parameterType="map">
+		DELETE FROM tbl_seokcommuboard WHERE COMBOARD_NO = #{COMBOARD_NO}
+	</delete>
+
+	<select id="GetBoardKey" resultType="map">
+		SELECT max(ifnull(COMBOARD_NO, 0))+1 as BOARD_KEY FROM tbl_seokcommuboard
+	</select>
+
+	<insert id="comBoardFileWrite" parameterType="map">
+		INSERT INTO
+		tbl_file (FILE_ID,COMBOARD_NO, FILE_NAME, FILE_TYPE, FILE_SIZE )
+		VALUES (#{FILE_ID},#{COMBOARD_NO},#{FILE_NAME}, #{FILE_TYPE}, #{FILE_SIZE})
+	</insert>
+
+	<update id="comBoardFileUpdate" parameterType="map">
+		UPDATE tbl_file
+		SET FILE_ID = #{FILE_ID}
+		, FILE_NAME = #{FILE_NAME}
+		, FILE_TYPE = #{FILE_TYPE}
+		, FILE_SIZE = #{FILE_SIZE}
+		WHERE COMBOARD_NO = #{COMBOARD_NO}
+	</update>
+
+
+	<delete id="comBoardFileDelete" parameterType="map">
+		DELETE FROM
+		tbl_file WHERE COMBOARD_NO = #{COMBOARD_NO}
+	</delete>
+
+
+	<update id="comUpDateHit" parameterType="string">
+      UPDATE tbl_seokcommuboard
+         SET COMBOARD_HIT = ifnull(COMBOARD_HIT,0) + 1
+         WHERE COMBOARD_NO = #{COMBOARD_NO}
+   	</update>
+   	
+	<select id="boardDetailView" parameterType="map" resultType="map">
+		SELECT a.*, b.NAME FROM tbl_seokcommuboard a, tbl_seokmember b WHERE a.USERID = b.USERID AND COMBOARD_NO = #{COMBOARD_NO}
+	</select>
+
+	<select id="boardFileList" parameterType="map" resultType="map">
+		SELECT * FROM tbl_file WHERE COMBOARD_NO = #{COMBOARD_NO}
+	</select>
+
+	<update id="upDateHit" parameterType="string">
+      UPDATE tbl_seokcontactboard
+         SET CONBOARD_HIT = ifnull(CONBOARD_HIT,0) + 1
+         WHERE CONBOARD_NO = #{paramHit}
+   	</update>
+
+	<select id="conBoardDetailView" parameterType="map" resultType="map">
+		SELECT a.*, b.NAME FROM tbl_seokcontactboard a,tbl_seokmember b WHERE a.USERID = b.USERID AND CONBOARD_NO = #{CONBOARD_NO}
+	</select>
+
+
+	<insert id="roomInfoListWrite" parameterType="map">
+		<selectKey resultType="string" keyProperty="ROOM_NO" order="BEFORE">
+			SELECT MAX(ROOM_NO)+1 FROM tbl_room
+		</selectKey>
+		INSERT INTO tbl_room (ROOM_NO, ROOM_TITLE, ROOM_INFO, ROOM_PHOTO)
+		VALUES (#{ROOM_NO}, #{ROOM_TITLE}, #{ROOM_INFO}, #{ROOM_PHOTO})
+	</insert>
+
+	<update id="roomInfoListUpdate" parameterType="map">
+		UPDATE tbl_room SET
+		ROOM_NO = #{ROOM_NO}
+		,ROOM_TITLE = #{ROOM_TITLE}
+		,ROOM_INFO = #{ROOM_INFO}
+		,ROOM_PHOTO = #{ROOM_PHOTO}
+		WHERE ROOM_NO = #{ROOM_NO}
+	</update>
+
+	<delete id="roomInfoListDelete" parameterType="map">
+		DELETE FROM tbl_room WHERE ROOM_NO = #{ROOM_NO}
+	</delete>
+
+	<select id="roomInfo" parameterType="map" resultType="map">
+		<include refid="pagingComm.pagingFront"></include>
+		SELECT * FROM tbl_room
+		<where>
+			<if test='ROOM_INFO !="" and ROOM_INFO != null'>
+				AND ROOM_INFO like concat('%',#{ROOM_INFO},'%')
+			</if>
+		</where>
+		ORDER BY ROOM_NO
+		<include refid="pagingComm.pagingEnd"></include>
+	</select>
+
+	<select id="seok2DrumrRoomePage" parameterType="map" resultType="map">
+		SELECT count(*) as cnt FROM tbl_room
+		<where>
+			<if test='ROOM_INFO !="" and ROOM_INFO != null'>
+				AND ROOM_INFO like concat('%',#{ROOM_INFO},'%')
+			</if>
+		</where>
+	</select>
+
+	<select id="roomDetailView" parameterType="map" resultType="map">
+		SELECT * FROM tbl_room WHERE ROOM_NO = #{ROOM_NO}
+	</select>
+
+	<insert id="roomReservetWrite" parameterType="map">
+		<selectKey resultType="string" keyProperty="RESERVE_NO" order="BEFORE">
+			SELECT MAX(RESERVE_NO)+1 FROM tbl_roomreserve
+		</selectKey>
+		INSERT INTO tbl_roomreserve (RESERVE_NO, USERID,ROOM_NO,RESERVE_STATUS, RESERVE_DATE,ROOM_TITLE)
+		VALUES
+		(#{RESERVE_NO},#{USERID},#{ROOM_NO},#{RESERVE_STATUS}, #{RESERVE_DATE},#{ROOM_TITLE})
+	</insert>
+
+	<update id="roomReserveUpdate" parameterType="map">
+		UPDATE
+		tbl_roomreserve
+		SET USERID = #{USERID}
+		, ROOM_NO = #{ROOM_NO}
+		, RESERVE_STATUS = #{RESERVE_STATUS}
+		, RESERVE_DATE = #{RESERVE_DATE}
+		, ROOM_TITLE = #{ROOM_TITLE}
+		WHERE RESERVE_NO = #{RESERVE_NO}
+	</update>
+
+	<delete id="roomReserveDelete" parameterType="map">
+		DELETE FROM
+		tbl_roomreserve WHERE RESERVE_NO = #{RESERVE_NO}
+	</delete>
+
+	<select id="selectReserveList"  parameterType="map" resultType="map">
+		<include refid="pagingComm.pagingFront"></include>
+			<!--  SELECT a.RESERVE_NO,
+			a.USERID,
+			b.NAME,
+			a.ROOM_NO,
+			c.ROOM_INFO,
+			c.ROOM_TITLE,
+			a.RESERVE_STATUS,
+			a.RESERVE_DATE
+			FROM tbl_roomreserve a,
+			tbl_seokmember b,
+			tbl_room c
+			WHERE a.USERID = b.USERID
+			AND a.ROOM_NO = c.ROOM_NO
+			AND a.USERID = #{USERID} -->
+			
+		SELECT a.RESERVE_NO,
+			a.USERID,
+			b.NAME,
+			a.ROOM_NO,
+			c.ROOM_INFO,
+			c.ROOM_TITLE,
+			a.RESERVE_STATUS,
+			DATE_FORMAT(a.RESERVE_DATE, '%Y%m%d') AS RESERVE_DATE,
+			CASE a.RESERVE_STATUS when '001' then 'cell_style1'
+									  	 when '003' then 'cell_style3'
+									    when '004' then 'cell_style4'
+				 					    end as BKCOL
+		FROM tbl_roomreserve a,
+			tbl_seokmember b,
+			tbl_room c
+			WHERE a.USERID = b.USERID
+				AND a.ROOM_NO = c.ROOM_NO
+				AND a.USERID = #{USERID}
+			ORDER BY RESERVE_NO DESC
+		<include refid="pagingComm.pagingEnd"></include>
+	</select>
+
+	<select id="selectReserveListPage" parameterType="map" resultType="map">
+		SELECT count(*) as totalCount
+		FROM tbl_roomreserve a,
+			tbl_seokmember b,
+			tbl_room c  
+			WHERE a.USERID = b.USERID
+			AND a.ROOM_NO = c.ROOM_NO
+			AND a.USERID = #{USERID}
+	</select>
+	
+	<select id="selectAdminReserveList" resultType="map" parameterType="map">
+			<!--SELECT a.RESERVE_NO,
+			a.USERID,
+			b.NAME,
+			a.ROOM_NO,
+			c.ROOM_INFO,
+			c.ROOM_TITLE,
+			a.RESERVE_STATUS,
+			DATE_FORMAT(a.RESERVE_DATE, '%Y%m%d') AS RESERVE_DATE
+			FROM tbl_roomreserve a,
+			tbl_seokmember b,
+			tbl_room c
+			WHERE a.USERID = b.USERID
+			AND a.ROOM_NO = c.ROOM_NO-->
+			
+		SELECT		
+			a.RESERVE_NO,
+			a.USERID,
+			b.NAME,
+			a.ROOM_NO,
+			c.ROOM_INFO,
+			c.ROOM_TITLE,
+			a.RESERVE_STATUS,
+			DATE_FORMAT(a.RESERVE_DATE, '%Y%m%d') AS RESERVE_DATE,
+			CASE a.RESERVE_STATUS when '001' then 'cell_style1'
+										when '003' then 'cell_style3'
+									    when '004' then 'cell_style4'
+				 					    end as BKCOL
+		FROM tbl_roomreserve a,
+			tbl_seokmember b,
+			tbl_room c
+			WHERE a.USERID = b.USERID
+			AND a.ROOM_NO = c.ROOM_NO
+			<if test='rName != null and rName != "" and rName != "undefined"'>
+			AND b.NAME = #{rName}
+			</if>
+			<if test='rStatus != "999"'>
+			AND a.RESERVE_STATUS = #{rStatus}
+			</if>
+			ORDER BY RESERVE_NO DESC
+	</select>
+
+
+	<select id="paramDate" parameterType="String" resultType="int">
+		SELECT COUNT(*) AS CNT FROM tbl_roomreserve 
+			WHERE RESERVE_DATE = #{param1} 
+				AND ROOM_TITLE = #{param2}
+				AND RESERVE_STATUS in (#{param3},"003") 
+	</select>
+	
+	
+	<insert id="ReplytWrite" parameterType="map">
+		<selectKey resultType="string" keyProperty="ADMREP_NO" order="BEFORE">
+			SELECT MAX(ADMREP_NO)+1 FROM tbl_seokadmcontrep
+		</selectKey>
+		INSERT INTO tbl_seokadmcontrep (ADMREP_NO, USERID, CONBOARD_NO, ADMREP_CONTENT, ADMREP_DATE)
+		VALUES (#{ADMREP_NO}, #{USERID}, #{CONBOARD_NO}, #{ADMREP_CONTENT}, #{ADMREP_DATE})
+	</insert>
+
+	<update id="ReplyUpdate" parameterType="map">
+		UPDATE tbl_seokadmcontrep 
+		SET ADMREP_NO = #{ADMREP_NO}
+		,USERID = #{USERID}
+		,CONBOARD_NO = #{CONBOARD_NO}
+		,ADMREP_CONTENT = #{ADMREP_CONTENT}
+		,ADMREP_DATE = #{ADMREP_DATE}
+		WHERE ADMREP_NO = #{ADMREP_NO}  
+	</update>
+
+	<delete id="ReplyDelete" parameterType="map">
+		DELETE FROM tbl_seokadmcontrep WHERE ADMREP_NO = #{ADMREP_NO}
+	</delete>
+	
+	<select id="selectReply" parameterType="String" resultType="map">
+		SELECT * FROM tbl_seokadmcontrep 
+		<if test="_parameter !=null and _parameter !='' and _parameter != 'undefined'">
+			WHERE CONBOARD_NO = #{paramNoticeSeq}
+		</if>
+	</select>
+
+	<select id="selectBoardCommentKey" parameterType="String" resultType="String">
+		SELECT LPAD(IFNULL(COUNT(REP_NO), '0')+1, 5, 0) AS REP_NO FROM tbl_seokcomurep
+		WHERE COMBOARD_NO = #{COMBOARD_NO}
+	</select>
+	
+	<insert id="insertBoardComment" parameterType="map">
+		INSERT INTO tbl_seokcomurep (REP_NO, USERID, COMBOARD_NO, REP_CONTENT, REP_DATE, REP_DEPTH, REP_PARENT, REP_ORDER, NAME)
+		VALUES (#{REP_NO}, #{USERID}, #{COMBOARD_NO}, #{REP_CONTENT}, NOW(), #{REP_DEPTH}, #{REP_PARENT}, #{REP_ORDER}, #{NAME})
+	</insert>
+	
+	<select id="selectComReply" parameterType="int" resultType="map">
+		SELECT REP_NO, USERID, COMBOARD_NO, REP_CONTENT, REP_DATE, REP_DEPTH, REP_PARENT, REP_ORDER, NAME FROM tbl_seokcomurep
+		WHERE COMBOARD_NO = #{selectReply}
+		ORDER BY REP_NO
+	</select>
+	
+	<delete id="comDeleteReply" parameterType="map">
+		DELETE FROM tbl_seokcomurep WHERE REP_NO = #{REP_NO}
+	</delete>
+	
+	<select id="CalendarSelect" parameterType="map" resultType="map">
+		SELECT case RESERVE_STATUS 
+				when '001' then 'red'
+				when '003' then 'red'
+	   		 	when '004' then 'white'
+			 end as BKCOL,
+		    'blue' as BORDERCOL,
+		     DATE_FORMAT(RESERVE_DATE, '%Y%m%d') AS RESERVE_DATE,
+		    'black' AS TCOL
+		FROM tbl_roomreserve
+		WHERE ROOM_NO = #{ROOM_NO}	
+	</select>
+	
+	<select id="CalendarSelectAdmin" parameterType="map" resultType="map">
+		SELECT case RESERVE_STATUS 
+				when '001' then 'red'
+				when '003' then 'red'
+	   		 	when '004' then 'white'
+			 end as BKCOL,
+		    'blue' as BORDERCOL,
+		     DATE_FORMAT(RESERVE_DATE, '%Y%m%d') AS RESERVE_DATE,
+		    'black' AS TCOL
+		FROM tbl_roomreserve
+		WHERE ROOM_NO = #{ROOM_NO}	
+		AND RESERVE_STATUS != '004'
+	</select>
+	
+	
+	<update id="comUpdateReply" parameterType="map">  		
+		UPDATE
+		tbl_seokcomurep
+		SET USERID = #{USERID}
+		, COMBOARD_NO = #{COMBOARD_NO}
+		, REP_CONTENT = #{REP_CONTENT}
+		, REP_DEPTH = #{REP_DEPTH}
+		, REP_PARENT = #{REP_PARENT}
+		, REP_ORDER = #{REP_ORDER}
+		, NAME = #{NAME}
+		WHERE REP_NO = #{REP_NO}
+	</update>
+
+</mapper>
+
+
+

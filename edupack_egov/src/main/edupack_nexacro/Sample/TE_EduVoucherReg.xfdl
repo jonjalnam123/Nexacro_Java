@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <Form id="TE_EduVoucherReg" width="600" height="570" titletext="교육바우처관리" cssclass="frm_popBg" onload="TE_EduVoucherReg_onload">
+    <Layouts>
+      <Layout height="570" mobileorientation="landscape" width="600">
+        <Static id="stc_EduManageDetail" taborder="1" cssclass="sta_WF_detailLbl01" top="38" text="" left="4" bottom="43" right="4"/>
+        <Button id="btn_Close" taborder="0" top="10" width="15" height="15" right="9" cssclass="btn_POP_Cls" onclick="comm_Click" escapebutton="true"/>
+        <Div id="div_Search" taborder="4" text="" left="4" top="39" height="40" cssclass="div_WF_SchList" right="4" formscrollbartype="none none" formscrolltype="none">
+          <Layouts>
+            <Layout>
+              <Static id="stc_Year" taborder="0" text="년도" left="14" top="8" width="44" height="22" cssclass="sta_WF_DetailTit" textAlign="center"/>
+              <Spin id="sp_Year" taborder="1" left="67" top="9" width="70" height="20" value="2019" min="2019" max="10000"/>
+              <Radio id="rd_Voucher" taborder="2" left="233" top="9" width="240" height="20" innerdataset="ds_CD_VOUCHER_CD1" datacolumn="CAPTION" codecolumn="CODE" rowcount="1" onitemchanged="div_Search_rd_Voucher_onitemchanged"/>
+              <Button id="btn_Inquiry" taborder="3" text="조회" top="8" width="60" height="22" right="8" onclick="comm_Click" cssclass="btn_WF_SchText"/>
+              <Static id="stc_Voucher" taborder="4" text="바우처구분" left="158" top="8" width="60" height="22" cssclass="sta_WF_DetailTit" textAlign="right"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="stc_BottomFrame" taborder="5" left="1" height="38" right="1" bottom="1" cssclass="sta_POP_BtnBg" text=""/>
+        <Grid id="grd_EduSeqDetailMM" taborder="2" left="4" top="div_Search:4" autofittype="col" binddataset="dsList" cellmovingtype="col" cellsizingtype="col" right="4" bottom="stc_BottomFrame:4" oncelldblclick="grd_EduSeqDetailMM_oncelldblclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="년도"/>
+                <Cell col="1" text="바우처번호"/>
+                <Cell col="2" text="바우처구분"/>
+                <Cell col="3" text="사용여부"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:YEAR"/>
+                <Cell col="1" text="bind:VOUCHER_NO"/>
+                <Cell col="2" text="bind:VOUCHER_CD_NAME"/>
+                <Cell col="3" text="bind:USE_FLAG" displaytype="checkboxcontrol"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static00" taborder="3" text="교육바우처관리" left="8" top="5" width="117" height="22" color="white" cssclass="sta_POP_Title "/>
+        <Button id="btn_Delete" taborder="7" text="삭제" height="22" onclick="comm_Click" cssclass="btn_WF_tran" right="78" width="60" bottom="8" visible="false"/>
+        <Button id="btn_Add" taborder="6" text="추가" width="60" height="22" onclick="comm_Click" cssclass="btn_WF_tran" right="btn_Delete:8" bottom="8" visible="false"/>
+        <Button id="btn_Save" taborder="8" text="저장" width="60" height="22" onclick="comm_Click" cssclass="btn_WF_tran" right="10" bottom="8" visible="false"/>
+        <Div id="div_Add" visible="false" left="135" top="591" width="330" height="148" taborder="9">
+          <Layouts>
+            <Layout>
+              <Static id="stc_CompanyReg2" taborder="0" cssclass="sta_WF_detailBg" top="35" text="" left="0" bottom="0" right="0"/>
+              <Static id="stc_PopupTitle" taborder="2" top="0" text="" left="0" right="0" height="35" background="URL(&quot;theme://images/frm_popBg.png&quot;)"/>
+              <Button id="btn_PopClose" taborder="1" top="10" width="15" height="15" right="12" cssclass="btn_POP_Cls" text="" escapebutton="true" onclick="comm_Click"/>
+              <Static id="Static00" taborder="3" text="바우처 추가" left="8" top="5" width="141" height="22" color="white" cssclass="sta_POP_Title"/>
+              <Static id="stc_Year" taborder="4" text="년도" left="14" top="43" width="60" height="22" cssclass="sta_WF_DetailTit" textAlign="right"/>
+              <Spin id="sp_Year" taborder="5" left="91" top="44" width="70" height="20" value="2019" min="2019" max="10000"/>
+              <Radio id="rd_Voucher" taborder="6" left="91" top="73" width="184" height="20" innerdataset="ds_CD_VOUCHER_CD2" datacolumn="CAPTION" codecolumn="CODE" rowcount="1" onitemchanged="div_Add_rd_Voucher_onitemchanged"/>
+              <Button id="btn_PopSave" taborder="7" text="생성" left="100" top="118" width="60" height="22" cssclass="btn_WF_tran" onclick="comm_Click"/>
+              <Button id="btn_PopCancel" taborder="8" text="취소" left="168" top="118" width="60" height="22" onclick="comm_Click"/>
+              <Static id="stc_Voucher" taborder="9" text="바우처구분" left="14" top="72" width="60" height="22" cssclass="sta_WF_DetailTit" textAlign="right"/>
+              <Static id="stc_Count" taborder="10" text="갯수" left="166" top="43" width="60" height="22" cssclass="sta_WF_DetailTit" textAlign="right"/>
+              <Spin id="sp_Count" taborder="11" left="243" top="44" width="70" height="20" value="1" min="1" max="300"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsList">
+        <ColumnInfo>
+          <Column id="YEAR" type="string" size="4"/>
+          <Column id="VOUCHER_NO" type="string" size="7"/>
+          <Column id="VOUCHER_CD" type="string" size="20"/>
+          <Column id="VOUCHER_CD_NAME" type="string" size="100"/>
+          <Column id="USE_FLAG" type="string" size="1"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_CD_VOUCHER_CD1"/>
+      <Dataset id="ds_CD_VOUCHER_CD2"/>
+      <Dataset id="dsInput">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/************************************************************************************************
+* 01. 업무구분 : 
+* 02. 화면명   : 교육바우처관리
+* 03. 화면설명 : 
+* 04. 작성일   : 2019.07.12
+* 05. 작성자   : 
+* 06. 수정이력 :
+***********************************************************************************************
+*     수정일          이  름    사유
+***********************************************************************************************
+*     
+************************************************************************************************/
+
+/************************************************************************************************
+* 공통 라이브러리 INCLUDE 영역
+************************************************************************************************/
+include "Script::CommSystem.xjs";
+include "Script::CommTrans.xjs";
+include "Script::CommUtil.xjs"; 	
+include "Script::CommGrid.xjs";
+
+/************************************************************************************************
+* 전역 변수 영역
+************************************************************************************************/
+
+
+/************************************************************************************************
+* FORM 영역
+************************************************************************************************/
+this.TE_EduVoucherReg_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnCompInit(obj); //헤더클릭 이벤트 없을 시 사용
+	this.fnFormInit();
+};
+
+/************************************************************************************************
+* FORM 공통 FUNCTION 영역
+************************************************************************************************/
+this.fnFormInit = function()
+{
+	if(this.parent.bEduVoucherReg)
+	{
+		var nYear = new Date().getFullYear();
+		this.div_Search.form.sp_Year.set_value(nYear);
+		this.div_Search.form.sp_Year.set_max(nYear+1);
+		this.btn_Add.set_visible(true);
+		this.btn_Delete.set_visible(true);
+		this.btn_Save.set_visible(true);
+	}
+	else
+	{
+		this.Static00.set_text("교육바우처선택");
+		this.div_Search.form.sp_Year.set_enable(false);
+		this.div_Search.form.sp_Year.set_value(this.parent.Year);
+	}
+	
+	this.fnGetCode();
+}
+
+/************************************************************************************************
+* TRANSACTION 및 추가 FUNCTION 영역
+************************************************************************************************/
+this.fnGetCode = function()
+{
+	this.gfnAddCodeDataset("ds_CD_VOUCHER_CD1" 	,"VOUCHER_CD", true);
+	this.gfnCodeTransaction();
+};
+
+this.fnSearch = function()
+{
+	if(!this.parent.bEduVoucherReg)
+		this.gfnAddSendParameter("USE_FLAG", "0");
+	if(this.div_Search.form.rd_Voucher.index>0)
+		this.gfnAddSendParameter("VOUCHER_CD", this.div_Search.form.rd_Voucher.value);
+	this.gfnAddSendParameter("YEAR", this.div_Search.form.sp_Year.value);
+	this.gfnAddOutputDataset("dsList", "dsOutput");
+	this.gfnCommonTransaction("Select", "TE_EduVoucher_S02", this.grd_EduSeqDetailMM);
+};
+
+this.fnSave = function(strType)
+{
+	if(strType=="A")
+	{
+		this.gfnAddSendParameter("YEAR", this.div_Add.form.sp_Year.value);
+		this.gfnAddSendParameter("VOUCHER_CD", this.div_Add.form.rd_Voucher.value);
+		this.gfnAddSendParameter("CNT", this.div_Add.form.sp_Count.value);
+		this.dsInput.clearData();
+		this.dsInput.addRow();
+		this.gfnAddInputDataset("dsInput", "dsInput");
+		this.gfnCommonTransaction("SaveA", "TE_EduVoucher_R02");
+	}
+	else if(strType=="D")
+	{
+		this.gfnAddInputDataset("dsList", "dsInput");
+		this.gfnCommonTransaction("SaveD", "TE_EduVoucher_R01");
+	}
+};
+
+this.fnCallBack = function(strSvcID, nErrorCode, strErrorMag)
+{
+	//에러 예외처리
+	if(nErrorCode != 0) 
+	{
+		alert("strSvcID : " + strSvcID + "\n" + "nErrorCode : " + nErrorCode + "\n" + "strErrorMag : " + strErrorMag);
+		return;
+	}
+	else 
+	{
+		if(strSvcID == "gfnGetCode")
+		{
+			if(this.parent.bEduVoucherReg)
+				this.div_Search.form.rd_Voucher.set_index(0);
+			else 
+				this.div_Search.form.rd_Voucher.set_index(1);
+			this.ds_CD_VOUCHER_CD2.copyData(this.ds_CD_VOUCHER_CD1);
+			this.ds_CD_VOUCHER_CD2.filter("CODE!=''");
+			this.fnSearch();
+		}
+		else if(strSvcID == "SaveA")
+		{
+			this.fnSearch();
+		}
+		else if(strSvcID == "SaveD")
+		{
+			this.fnSearch();
+		}
+		else if(strSvcID == "Select")
+		{
+			
+		}
+	}
+}
+/************************************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+************************************************************************************************/
+
+this.comm_Click = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	switch(obj.name)
+	{
+		case "btn_Inquiry" : 
+			this.fnSearch();
+			break;
+		case "btn_Add" :
+			/*정기가 사용된 경우가 있을경우 정기를 선택할수 없음*/
+			this.dsList.filter("VOUCHER_CD=='Y'&&USE_FLAG=='1'");
+			var nCntY = this.dsList.getRowCount();
+			this.dsList.filter("");
+			if(nCntY>0)
+				this.ds_CD_VOUCHER_CD2.filter("CODE!=''&&CODE!='Y'");
+			this.div_Add.form.rd_Voucher.set_index(0);
+			this.div_Add.set_top(231);
+			this.div_Add.set_left(135);	
+			this.div_Add.set_visible(true);
+			break;
+		case "btn_Delete" :
+			if(this.dsList.getColumn(this.dsList.rowposition, "USE_FLAG")=="1")
+			{
+				this.alert("사용한 바우처는 삭제할수 없습니다.");
+				return;
+			}
+			else if(this.dsList.getColumn(this.dsList.rowposition, "VOUCHER_CD")=="Y")
+			{
+				this.alert("정기 바우처는 삭제할수 없습니다.");
+				return;
+			}
+			this.dsList.deleteRow(this.dsList.rowposition);
+			break;
+		case "btn_Save" : 
+			this.fnSave("D");
+			break;
+		case "btn_PopSave" : 
+			this.fnSave("A");
+			this.fnSearch();
+			this.div_Add.set_visible(false);
+			break;
+		case "btn_PopClose" : 
+		case "btn_PopCancel" : 
+			this.div_Add.set_visible(false);
+			break;
+		case "btn_Close" : 
+			this.commUtil.popupClose();
+			break;
+	}
+};
+
+this.div_Add_rd_Voucher_onitemchanged = function(obj:nexacro.Radio,e:nexacro.ItemChangeEventInfo)
+{
+	if(e.postvalue=="Y")
+	{
+		this.div_Add.form.sp_Count.set_enable(true);
+	}
+	else
+	{
+		this.div_Add.form.sp_Count.set_value(1);
+		this.div_Add.form.sp_Count.set_enable(false);
+	}
+};
+
+this.div_Search_rd_Voucher_onitemchanged = function(obj:nexacro.Radio,e:nexacro.ItemChangeEventInfo)
+{
+	this.fnSearch();
+};
+
+this.grd_EduSeqDetailMM_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	if(!this.parent.bEduVoucherReg)
+	{
+		if(this.dsList.getColumn(this.dsList.rowposition, "USE_FLAG")=="1")
+		{
+			this.alert("사용한 바우처는 선택할수 없습니다.");
+			return;
+		}
+		var strVOUCHER_NO = this.dsList.getColumn(this.dsList.rowposition, "VOUCHER_NO");
+		this.commUtil.popupClose(strVOUCHER_NO);
+	}
+};
+]]></Script>
+  </Form>
+</FDL>

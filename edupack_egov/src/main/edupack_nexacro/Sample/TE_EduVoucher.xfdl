@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="TE_EduVoucher" width="1290" height="570" titletext="교육바우처" onload="TE_EduVoucher_onload">
+    <Layouts>
+      <Layout height="570" mobileorientation="landscape" width="1290">
+        <Div id="div_EduMM" taborder="0" text="" left="8" top="8" height="40" cssclass="div_WF_SchList" right="8" formscrollbartype="none none" formscrolltype="none">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Inquiry" taborder="0" text="조회" top="8" width="60" height="22" right="8" onclick="comm_Click" cssclass="btn_WF_SchText"/>
+              <Button id="btn_ExcelExport" taborder="1" text="Excel" top="8" width="68" height="22" right="btn_Inquiry:8" onclick="comm_Click" cssclass="btn_WF_Excel"/>
+              <Static id="stc_EduMonth" taborder="2" text="기간" left="9" top="8" width="60" height="22" textAlign="right" cssclass="sta_WF_DetailTit"/>
+              <Div id="div_Search_yyyyMM_FromTo" taborder="3" left="79" top="8" width="300" height="22" url="Common::COM_yyyyMM_FromTo.xfdl" user_onchanged="fnSearch"/>
+              <Combo id="cmb_VoucherCD" taborder="4" text="MiPlatform" left="490" top="8" width="169" height="22" innerdataset="ds_CD_VOUCHER_CD" codecolumn="CODE" datacolumn="CAPTION" index="0" onitemchanged="div_EduMM_cmb_ProductName_onitemchanged"/>
+              <Static id="stc_VoucherCD" taborder="5" text="바우처 구분" left="412" top="8" width="70" height="22" cssclass="sta_WF_DetailTit" textAlign="right"/>
+              <Button id="btn_EduVoucherReg" taborder="6" text="교육바우처관리" top="8" width="92" height="22" right="btn_ExcelExport:8" onclick="comm_Click"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd_List" taborder="1" left="8" right="8" binddataset="ds_List" autofittype="col" bottom="8" top="div_EduMM:8" cellsizingtype="col" cellmovingtype="col">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="120"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="180"/>
+                <Column size="250"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="바우처 번호"/>
+                <Cell col="1" text="바우처 구분"/>
+                <Cell col="2" text="부서"/>
+                <Cell col="3" text="영업대표"/>
+                <Cell col="4" text="계약제품"/>
+                <Cell col="5" text="교육시작일"/>
+                <Cell col="6" text="교육종료일"/>
+                <Cell col="7" text="강사"/>
+                <Cell col="8" text="상태"/>
+                <Cell col="9" text="참석자"/>
+                <Cell col="10" text="실참석자"/>
+                <Cell col="11" text="고객사"/>
+                <Cell col="12" text="프로젝트명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:VOUCHER_NO"/>
+                <Cell col="1" text="bind:VOUCHER_CD_NAME"/>
+                <Cell col="2" text="bind:INSERT_DEPT_NM"/>
+                <Cell col="3" text="bind:INSERT_EMP_NAME"/>
+                <Cell col="4" text="bind:PRODUCT_NAME"/>
+                <Cell col="5" text="bind:START_DATE" displaytype="date" calendardateformat="yyyy-MM-dd"/>
+                <Cell col="6" text="bind:END_DATE" displaytype="date" calendardateformat="yyyy-MM-dd"/>
+                <Cell col="7" text="bind:WORK_EMP_NAME"/>
+                <Cell col="8" text="bind:CONFIRM_NAME"/>
+                <Cell col="9" text="bind:EDU_COUNT"/>
+                <Cell col="10" text="bind:EDU_REAL_COUNT"/>
+                <Cell col="11" text="bind:CLIENT_NAME" textAlign="left"/>
+                <Cell col="12" text="bind:PROJECT_NAME" textAlign="left"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_CD_VOUCHER_CD"/>
+      <Dataset id="ds_List">
+        <ColumnInfo>
+          <Column id="VOUCHER_NO" type="string" size="7"/>
+          <Column id="VOUCHER_CD_NAME" type="string" size="100"/>
+          <Column id="INSERT_DEPT_NM" type="string" size="100"/>
+          <Column id="INSERT_EMP_NAME" type="string" size="255"/>
+          <Column id="PRODUCT_NAME" type="string" size="100"/>
+          <Column id="START_DATE" type="datetime" size="23"/>
+          <Column id="END_DATE" type="datetime" size="23"/>
+          <Column id="WORK_EMP_NAME" type="string" size="255"/>
+          <Column id="CONFIRM_NAME" type="string" size="100"/>
+          <Column id="EDU_COUNT" type="int" size="11"/>
+          <Column id="CLIENT_NAME" type="string" size="100"/>
+          <Column id="PROJECT_NAME" type="string" size="100"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/************************************************************************************************
+* 01. 업무구분 : 
+* 02. 화면명   : 교육생 조회 (TE_EduVoucher)
+* 03. 화면설명 : 
+* 04. 작성일   : 
+* 05. 작성자   : 
+* 06. 수정이력 :
+***********************************************************************************************
+*     수정일          이  름    사유
+***********************************************************************************************
+*     
+************************************************************************************************/
+
+/************************************************************************************************
+* 공통 라이브러리 INCLUDE 영역
+************************************************************************************************/
+include "Script::CommSystem.xjs";
+include "Script::CommTrans.xjs";
+include "Script::CommUtil.xjs"; 	
+include "Script::CommGrid.xjs";
+include "Script::ext_Report.xjs";
+
+/************************************************************************************************
+* 전역 변수 영역
+************************************************************************************************/
+
+/************************************************************************************************
+* FORM 영역
+************************************************************************************************/
+this.TE_EduVoucher_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnCompInit(obj);
+	this.fnFormInit();
+};
+
+/************************************************************************************************
+* FORM 공통 FUNCTION 영역
+************************************************************************************************/
+this.fnFormInit = function()
+{
+	if (this.commUtil.getAuthority(172))
+		this.div_EduMM.form.btn_EduVoucherReg.set_enable(true);
+	else 
+		this.div_EduMM.form.btn_EduVoucherReg.set_enable(false);
+	this.fnGetCode();
+}
+
+/************************************************************************************************
+* TRANSACTION 및 추가 FUNCTION 영역
+************************************************************************************************/
+this.fnGetCode = function()
+{
+	this.gfnAddCodeDataset("ds_CD_VOUCHER_CD" 	,"VOUCHER_CD", true);
+	this.gfnCodeTransaction();
+};
+
+this.fnSearch = function()
+{
+	if(this.div_EduMM.form.cmb_VoucherCD.index>0)
+		this.gfnAddSendParameter("VOUCHER_CD", this.div_EduMM.form.cmb_VoucherCD.value);
+	this.gfnAddSendParameter("START_DATE", this.div_EduMM.form.div_Search_yyyyMM_FromTo.getFromYYYYMM());
+	this.gfnAddSendParameter("END_DATE", this.div_EduMM.form.div_Search_yyyyMM_FromTo.getToYYYYMM());
+	
+	this.gfnAddOutputDataset("ds_List", "dsOutput");
+	this.gfnCommonTransaction("Select", "TE_EduVoucher_S01", this.grd_List);
+};
+
+this.fnCallBack = function(strSvcID, nErrorCode, strErrorMag)
+{
+	//에러 예외처리
+	if(nErrorCode != 0) 
+	{
+		alert("strSvcID : " + strSvcID + "\n" + "nErrorCode : " + nErrorCode + "\n" + "strErrorMag : " + strErrorMag);
+		return;
+	}
+	else 
+	{
+		if(strSvcID == "gfnGetCode")
+		{
+			this.div_EduMM.form.cmb_VoucherCD.set_index(0);
+		}
+		else if(strSvcID == "Select")
+		{
+		
+		}
+	}
+}
+
+/************************************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+************************************************************************************************/
+this.comm_Click = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	switch(obj.name)
+	{
+		case "btn_Inquiry" : 
+			this.fnSearch();
+			break;
+		case "btn_ExcelExport" : 
+			this.gfn_excelExport(this, this.grd_List);
+			break;
+		case "btn_EduVoucherReg" : 
+			var sArgument = {bEduVoucherReg: true};
+			this.commUtil.popup(this, "TE_EduVoucherReg", "Technique::TE_EduVoucherReg.xfdl", -1, -1, null, null, true, true, false, sArgument, "fnPopupCallBack");
+			break;
+	}
+};
+
+this.fnPopupCallBack = function (popupId, popupArg)
+{	
+	popupArg = this.commUtil.popupReturn();
+	
+	switch(popupId)
+	{
+		case "TE_EduVoucherReg" : 
+			break;
+		default:
+			break;
+	}
+};]]></Script>
+  </Form>
+</FDL>

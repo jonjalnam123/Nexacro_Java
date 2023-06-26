@@ -1,0 +1,106 @@
+﻿{
+    "version" : "21.0.0.1",
+    "runtime" :
+    {
+        "target" :
+        {
+            "os" : "windows"
+        },
+        "framework" :
+        [    
+        "./nexacrolib/framework/Framework.js"
+        ],
+        "component" :
+        [    
+        "./nexacrolib/component/CompBase.js",
+        "./nexacrolib/component/ComComp.js",
+        "./nexacrolib/component/Grid.js",
+        "./nexacrolib/component/ListView.js",
+        "./nexacrolib/component/DeviceAPI.js"
+        ],
+        "environment" :
+        [    
+        {
+        "file":"./environment.xml.js"
+        }
+        ],
+        "screen" :
+        [    
+        {"id":"Desktop_screen","type":"desktop","themeid":"theme::NEDU","initvaluefileid":"initvalue::list.xiv"}
+        ],
+        "xadl" :
+        [
+        {
+        	"screenid":"Desktop_screen",
+        	"launch":"./Application_Desktop.xadl.js",
+        	"quickview":"./Application_Desktop.xadl.quickview.js",
+        	"form":[
+        				"./FrameBase/Form_Login.xfdl.js",
+        		"./FrameBase/Form_Top.xfdl.js",
+        		"./FrameBase/Form_Left.xfdl.js",
+        		"./FrameBase/Form_Mdi.xfdl.js",
+        		"./FrameBase/Form_Main.xfdl.js"
+        	]
+        }
+        ],  
+        "protocol" :
+        {
+            "adaptors" :
+            []
+        },
+        "resource" :
+        {
+            "windows" : {
+                "updateurl" : "./",
+                "timeout" : "30",
+                "retry" : "3",
+                "autoupdate" : "auto",
+                "updatetype" : "server",
+            "windows 10, windows 8 / 8.1, windows 7, windows vista, windows server 2003, windows server 2008, windows server 2012, windows server 2016" : {
+                "updateurl" : "",
+                "enginesetupkey" : "506B38F2-11E4-4363-9096-38D269508FD3",
+                    "resources" :
+                    [{"type" : "Engine", "file" : "FrontNexacroN_SetupRuntime_x86.exe", "targetpath" : "./", "version" : "21.0.0.1400"}]
+                },
+            "windows 11 64bit, windows 10 64bit, windows 8 / 8.1 64bit, windows 7 64bit, windows vista 64bit, windows server 2003 64bit, windows server 2008 64bit, windows server 2012 64bit, windows server 2016 64bit" : {
+                "updateurl" : "",
+                "enginesetupkey" : "EE2A56F7-D8C4-407D-94A9-9748131FFF46",
+                    "resources" :
+                    [{"type" : "Engine", "file" : "FrontNexacroN_SetupRuntime_x64.exe", "targetpath" : "./", "version" : "21.0.0.1400"}]
+                },
+            "common" : {
+                "updateurl" : "",
+                    "resources" :
+                    [{"type" : "Module", "file" : "nexacrolib.zip", "targetpath" : "", "version" : "0"}]
+                }
+            }
+        },
+		"deploy" :
+        {
+            "windows" : {
+                "updateurl" : "./",
+            "windows 10, windows 8 / 8.1, windows 7, windows vista, windows server 2003, windows server 2008, windows server 2012, windows server 2016" : {
+                "updateurl" : "",
+                "enginesetupkey" : "506B38F2-11E4-4363-9096-38D269508FD3",
+                    "resources" :
+                    [{"type" : "Engine", "file" : "FrontNexacroN_SetupRuntime_x86.exe", "targetpath" : "./", "version" : "21.0.0.1400"}]
+                },
+            "windows 11 64bit, windows 10 64bit, windows 8 / 8.1 64bit, windows 7 64bit, windows vista 64bit, windows server 2003 64bit, windows server 2008 64bit, windows server 2012 64bit, windows server 2016 64bit" : {
+                "updateurl" : "",
+                "enginesetupkey" : "EE2A56F7-D8C4-407D-94A9-9748131FFF46",
+                    "resources" :
+                    [{"type" : "Engine", "file" : "FrontNexacroN_SetupRuntime_x64.exe", "targetpath" : "./", "version" : "21.0.0.1400"}]
+                },
+            "common" : {
+                "updateurl" : "",
+                    "resources" :
+                    [{"type" : "Module", "file" : "nexacrolib.zip", "targetpath" : "", "version" : "0"}]
+                }
+            }
+        },
+        "userfont" :
+        [
+
+        ]
+    }
+}

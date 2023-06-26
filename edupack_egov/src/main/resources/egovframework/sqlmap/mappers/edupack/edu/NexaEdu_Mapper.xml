@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper
+	namespace="com.edupack.edu.service.mapper.NexaEduMapper">
+	
+	<select id ="selectEmpList" resultType="map">
+		SELECT * FROM TB_EMP
+	</select>
+	
+	<select id ="selectEmpListParam1" parameterType="String" resultType="map">
+		SELECT *
+			FROM TB_EMP 
+		<if test = '_parameter !=null and _parameter !="" and _parameter !="undefined"'>
+		WHERE DEPT_CD = #{pDept} 
+		</if>
+	</select>
+	
+	<select id ="selectEmpListParam2" parameterType="com.edupack.edu.vo.NexaEduVo" resultType="map">
+		SELECT * 
+			FROM TB_EMP 
+		WHERE 1=1
+		<if test = 'dept_cd !=null and dept_cd !="" and dept_cd !="undefined"'> 
+			AND DEPT_CD = #{dept_cd} 
+		</if>
+		
+		<if test = 'emp_name !=null and emp_name !="" and emp_name !="undefined"'> 
+			AND FULL_NAME LIKE CONCAT('%',#{emp_name},'%') <!-- FULL_NAME 안에 있는 데이터 검색할때 아무거나 넣으면 검색되게 하는 쿼리 -->
+		</if>
+		
+	</select>
+	
+		<select id ="selectEmpListParamDs" parameterType="map" resultType="map">
+		SELECT *
+			FROM TB_EMP 
+		WHERE 1=1
+		<if test = 'col_dept !=null and col_dept !="" and col_dept !="undefined"'> 
+			AND DEPT_CD = #{col_dept} 
+		</if>
+		
+		<if test = 'col_name !=null and col_name !="" and col_name !="undefined"'> 
+			AND FULL_NAME LIKE CONCAT('%',#{col_name},'%') <!-- FULL_NAME 안에 있는 데이터 검색할때 아무거나 넣으면 검색되게 하는 쿼리 -->
+		</if>
+		
+	</select>
+	
+	<select id ="selectDeptList" resultType="map">
+		SELECT DEPT_CD, DEPT_NAME FROM TB_DEPT
+	</select>
+	
+	<select id ="selectPosList" resultType="map">
+		SELECT POS_CD, POS_NAME FROM TB_POS
+	</select>
+	
+	<select id="selectCodeList" parameterType="map" resultType="map">
+		SELECT * 
+		FROM TB_COMCODE 
+		WHERE GROUP_CODE in
+		<foreach collection="group_code" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+	
+	<insert id="insertEmp" parameterType="map">
+	INSERT INTO tb_emp (EMPL_ID, FULL_NAME, DEPT_CD, POS_CD, HIRE_DATE, SALARY, MARRIED, GENDER, MEMO) 
+	VALUES (#{EMPL_ID},#{FULL_NAME},#{DEPT_CD},#{POS_CD},#{HIRE_DATE},#{SALARY},#{MARRIED},#{GENDER},#{MEMO})
+	</insert>
+	
+	<update id="updateEmp" parameterType="map">
+	UPDATE tb_emp
+	   SET EMPL_ID = #{EMPL_ID}
+	   ,   FULL_NAME = #{FULL_NAME}
+	   ,   DEPT_CD = #{DEPT_CD}
+	   ,   POS_CD = #{POS_CD}
+	   ,   HIRE_DATE = #{HIRE_DATE}
+	   ,   SALARY = #{SALARY}
+	   ,   MARRIED = #{MARRIED}
+	   ,   GENDER = #{GENDER}
+	   ,   MEMO = #{MEMO}
+	WHERE EMPL_ID = #{ORG_EMPL_ID}
+	</update>
+	
+	<delete id="deleteEmp" parameterType="map">
+	DELETE FROM tb_emp WHERE EMPL_ID = #{EMPL_ID}
+	</delete>
+	
+	<select id="checkEmpID" parameterType="String" resultType="int">
+		SELECT COUNT(*) AS CNT FROM TB_EMP WHERE EMPL_ID = #{EMPL_ID}
+	</select>
+	
+
+		
+</mapper>

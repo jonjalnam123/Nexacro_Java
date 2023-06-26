@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Chart" width="1280" height="720" titletext="New Form" onload="Chart_onload">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Div id="div00" taborder="0" text="div00" left="50" top="34" width="400" height="346" url="Cmm::CmmRmateChartAll.xfdl" background="ivory"/>
+        <Div id="div01" taborder="1" text="div01" left="520" top="30" width="400" height="346" url="Cmm::CmmRmateChartAll.xfdl" background="ivory"/>
+        <Div id="div02" taborder="2" text="div02" left="288" top="440" width="809" height="236">
+          <Layouts>
+            <Layout>
+              <WebBrowser id="web00" taborder="0" left="134" top="32" width="605" height="177"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include "Lib::rMateChartH5.xjs";
+
+this.layoutStr1;
+this.layoutStr2;
+
+this.chartData1;
+this.chartData2;
+
+this.Chart_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+
+	this.gfnFormOnLoad(this);
+	this.gfnCreateChart(this.div02.form.web00);
+
+	// 스트링 형식으로 레이아웃 정의.
+	this.layoutStr1 = '<rMateChart backgroundColor="#FFFFFF"  borderThickness="1" borderStyle="none">'
+		 +'<Options>'
+			  +'<Caption text="Rainfall" textAlign="center" />'
+				+'<SubCaption text="( mm )" textAlign="right" />'
+			 +'<Legend />'
+		 +'</Options>'
+		 +'<NumberFormatter id="numFmt" precision="0"/>'
+		   +'<Line2DChart showDataTips="true" dataTipDisplayMode="axis" paddingTop="0">'
+			 +'<horizontalAxis>'
+				   +'<CategoryAxis categoryField="Month"/>'
+			  +'</horizontalAxis>'
+			  +'<verticalAxis>'
+				 +'<LinearAxis minimum="0" maximum="100" interval="10" />'
+			 +'</verticalAxis>'
+				+'<series>'
+				   +'<Line2DSeries yField="Vancouver" displayName="Vancouver">'
+				  +'</Line2DSeries>'
+				+'</series>'
+			  +'<annotationElements>'
+				   +'<CrossRangeZoomer enableZooming="false" horizontalLabelFormatter="{numFmt}" horizontalStrokeEnable="false"/>'
+			   +'</annotationElements>'
+		  +'</Line2DChart>'
+	 +'</rMateChart>';
+	 
+	// 차트 데이터
+	this.chartData1 = [  {"Month":"Jan","Vancouver":40},
+						{"Month":"Feb","Vancouver":50},
+						{"Month":"Mar","Vancouver":47},
+						{"Month":"Apr","Vancouver":57},
+						{"Month":"May","Vancouver":68},
+						{"Month":"Jun","Vancouver":52},
+						{"Month":"Jul","Vancouver":36},
+						{"Month":"Aug","Vancouver":42},
+						{"Month":"Sep","Vancouver":33},
+						{"Month":"Oct","Vancouver":39},
+						{"Month":"Nov","Vancouver":45},
+						{"Month":"Dec","Vancouver":40}];
+						
+		// 스트링 형식으로 레이아웃 정의.
+	this.layoutStr2 = 
+					'<rMateChart backgroundColor="#FFFFFF"  borderStyle="none">'
+					  +'<Options>'
+						  +'<Caption text="Rainfall" textAlign="center" />'
+							+'<SubCaption text="( mm )" textAlign="right" />'
+						 +'<Legend />'
+					 +'</Options>'
+					 +'<Bar2DChart showDataTips="true">'
+						   +'<horizontalAxis>'
+							   +'<LinearAxis maximum="100"/>'
+							+'</horizontalAxis>'
+						  +'<verticalAxis>'
+							 +'<CategoryAxis categoryField="Month"/>'
+						 +'</verticalAxis>'
+							+'<series>'
+							   +'<Bar2DSeries labelPosition="inside" xField="Vancouver" displayName="Vancouver" showValueLabels="[6,7]" color="#ffffff" insideLabelYOffset="-2">'
+									+'<showDataEffect>'
+									   +'<SeriesInterpolate/>'
+								  +'</showDataEffect>'
+							  +'</Bar2DSeries>'
+						 +'</series>'
+					  +'</Bar2DChart>'
+				  +'</rMateChart>';
+	 
+	// 차트 데이터
+	this.chartData2 = [  {"Month":"Jan", "Vancouver":21},
+						{"Month":"Feb", "Vancouver":29},
+						{"Month":"Mar", "Vancouver":48},
+						{"Month":"Apr", "Vancouver":38},
+						{"Month":"May", "Vancouver":59},
+						{"Month":"Jun", "Vancouver":77.2},
+						{"Month":"Jul", "Vancouver":68},
+						{"Month":"Aug", "Vancouver":58},
+						{"Month":"Sep", "Vancouver":44},
+						{"Month":"Oct", "Vancouver":23}];
+						
+	this.div00.form.fnSetChart("chart1", this.layoutStr1, this.rMateChartDataSetToXml(this.dsData));
+	this.div01.form.fnSetChart("chart2", this.layoutStr2, this.rMateChartDataSetToXml(this.dsData));
+	
+};
+
+this.rMateChartOnLoad = function()
+{
+	trace('============= rMateChartOnLoad');
+	
+	var arrOption = {title:"Rainfall", subtitle:"( mm )", xfield:"Month", yfield:"Vancouver", displayName : "Vancouver", minimum:"40",  maximum:"100", interval:"5"};
+	var sType = "Line";	
+	this.gfnSetChart(this.div02.form.web00, this.dsData, sType, arrOption);	
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsData">
+        <ColumnInfo>
+          <Column id="Month" type="STRING" size="256"/>
+          <Column id="Vancouver" type="INT" size="256"/>
+          <Column id="Toronto" type="STRING" size="256"/>
+          <Column id="Calgary" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Month">Jan</Col>
+            <Col id="Vancouver">91</Col>
+            <Col id="Toronto">85</Col>
+            <Col id="Calgary">45</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Feb</Col>
+            <Col id="Vancouver">87</Col>
+            <Col id="Toronto">75</Col>
+            <Col id="Calgary">75</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Mar</Col>
+            <Col id="Vancouver">88</Col>
+            <Col id="Toronto">87</Col>
+            <Col id="Calgary">65</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Apr</Col>
+            <Col id="Vancouver">86</Col>
+            <Col id="Toronto">78</Col>
+            <Col id="Calgary">78</Col>
+          </Row>
+          <Row>
+            <Col id="Month">May</Col>
+            <Col id="Vancouver">82</Col>
+            <Col id="Toronto">84</Col>
+            <Col id="Calgary">56</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Jun</Col>
+            <Col id="Vancouver">80</Col>
+            <Col id="Toronto">68</Col>
+            <Col id="Calgary">65</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Jul</Col>
+            <Col id="Vancouver">79</Col>
+            <Col id="Toronto">57</Col>
+            <Col id="Calgary">54</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Aug</Col>
+            <Col id="Vancouver">72</Col>
+            <Col id="Toronto">67</Col>
+            <Col id="Calgary">79</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Sep</Col>
+            <Col id="Vancouver">90</Col>
+            <Col id="Toronto">87</Col>
+            <Col id="Calgary">85</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Oct</Col>
+            <Col id="Vancouver">95</Col>
+            <Col id="Toronto">75</Col>
+            <Col id="Calgary">79</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Nov</Col>
+            <Col id="Vancouver">40</Col>
+            <Col id="Toronto">84</Col>
+            <Col id="Calgary">65</Col>
+          </Row>
+          <Row>
+            <Col id="Month">Dec</Col>
+            <Col id="Vancouver">60</Col>
+            <Col id="Toronto">65</Col>
+            <Col id="Calgary">79</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

@@ -1,0 +1,583 @@
+﻿
+html, body
+{
+  position:absolute;
+  width:100%;
+  height:100%;
+  font:12pt Verdana;
+
+  -moz-user-select:none;
+  -webkit-user-select:none;
+  -ms-user-select:none;
+}
+
+div, header, nav, section, article, aside, footer
+{
+  position:absolute;
+  box-sizing:border-box;
+  overflow:hidden;
+  background-origin:padding-box;
+  background-repeat:no-repeat;
+  white-space : pre;
+  -moz-user-select:-moz-none;
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
+  -webkit-appearance:none;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  outline:none;  
+}
+
+table
+{
+  position:absolute;
+  box-sizing:border-box;
+  overflow:hidden;
+}
+
+input
+{
+  position:absolute;
+  box-sizing:border-box;
+  overflow:hidden;
+}
+
+img
+{
+  position:absolute;
+  box-sizing:border-box;
+}
+
+textarea::-webkit-scrollbar { display: none; }
+
+
+div.nexacontainer
+{
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:100%;
+  height:100%;
+}
+
+.nexacontainer.nexartl
+{ 
+  right:0px;
+}
+
+div.nexacontainer.withvscroll
+{
+  right:14px;
+}
+.nexacontainer.nexartl.withvscroll
+{
+  left:14px;
+}
+div.nexacontainer.withhscroll
+{
+  bottom:14px;
+}
+div.nexacontainer.withbothscroll
+{
+  right:14px;
+  bottom:14px;
+}
+.nexacontainer.nexartl.withbothscroll
+{
+  left:14px;
+  bottom:14px;
+}
+div.nexalefttop
+{
+  left:0px;
+  top:0px;
+  background-repeat:no-repeat;
+  background-position:left top;
+  font-size:1px;
+}
+.nexalefttop.nexartl
+{
+  background-position:right top;
+}
+div.nexaleftbottom
+{
+  left:0px;
+  bottom:0px;
+  background-repeat:no-repeat;
+  background-position:left bottom;
+  font-size:1px;
+}
+.nexaleftbottom.nexartl
+{
+  background-position:right bottom;
+}
+div.nexarightbottom
+{
+  right:0px;
+  bottom:0px;
+  background-repeat:no-repeat;
+  background-position:right bottom;
+  font-size:1px;
+}
+.nexarightbottom.nexartl
+{
+  background-position:left bottom;
+}
+div.nexarighttop
+{
+  right:0px;
+  top:0px;
+  background-repeat:no-repeat;
+  background-position:right top;
+}
+.nexarighttop.nexartl
+{
+  background-position:left top;
+}
+div.nexaedge
+{
+  width:100%;
+  height:100%;
+}
+div.nexamodaloverlay
+{
+  width:100%;
+  height:100%;
+}
+div.nexainnercontainer
+{
+
+}
+div.nexatransform
+{
+
+}
+div.nexacontentsbox
+{
+  position:relative;
+  display:table-cell;
+  background-position:left center;
+  background-repeat:no-repeat;
+  vertical-align:middle;
+}
+.nexacontentsbox.nexartl
+{
+  background-position:right center;
+}
+.nexatextitem
+{
+  position:relative;
+  vertical-align:middle;
+  white-space:inherit;
+  word-wrap:inherit;
+  word-break:inherit;
+  text-decoration:inherit;
+}
+.nexaiconitem
+{
+  position:relative;
+  vertical-align:middle;
+  background-position:center center;
+  background-repeat:no-repeat;
+}
+.nexainput
+{
+  font:inherit;
+  color:inherit;
+  cursor:inherit;
+  letter-spacing:inherit;
+  word-spacing:inherit;
+  border:none;
+  outline:none;
+  background:transparent;
+  padding : 0px;  
+}
+.nexatextarea
+{
+  font:inherit;
+  color:inherit;
+  cursor:inherit;
+  line-height : inherit;
+  letter-spacing:inherit;
+  word-spacing:inherit;
+  white-space:pre;
+  word-wrap:normal;
+  border:none;
+  outline:none;
+  resize:none;
+  background:transparent;
+  padding : 0px;
+  box-sizing:border-box;		
+}
+div.nexaleftalign, input.nexaleftalign
+{
+  text-align:left;
+}
+.nexaleftalign.nexartl
+{
+  text-align:right;
+}
+div.nexarightalign, input.nexarightalign
+{
+  text-align:right;
+}
+.nexarightalign.nexartl
+{
+  text-align:left;
+}
+div.nexacenteralign,input.nexacenteralign
+{
+  text-align:center;
+}
+div.nexamap div *
+{
+  overflow:visible;
+}
+
+div.ProgressBar, div.ProgressBarControl
+{
+  
+}
+
+div.celltreeline
+{
+  border : 1px dotted #999999;
+}
+
+div.Edit, div.MaskEdit, div.TextArea, div.EditControl, div.MaskEditControl, div.TextAreaControl
+{
+  cursor:text;
+}
+div.Button .nexacontentsbox, div.ButtonControl .nexacontentsbox
+{
+  text-align:center;
+  background-position:center center;
+}
+div.FileDownload  .nexacontentsbox, div.FileDownloadControl .nexacontentsbox
+{
+  text-align:center;
+  background-position:center center;
+}
+div.IconTextControl .nexacontentsbox, div.IconControl .nexacontentsbox
+{
+  text-align:center;
+  background-position:center center;
+}
+div.DatePickerDayItemControl .nexacontentsbox, div.DatePickerWeekItemControl .nexacontentsbox, div.TitleBarButtonControl .nexacontentsbox
+{
+  text-align:center;
+  background-position:center center;
+}
+
+div.Sketch .nexacontentsbox
+{
+  text-align:center;
+}
+
+div.MainFrame, div.VScrollBarControl, div.HScrollBarControl
+{
+  cursor:default;
+}
+
+div.Button
+{
+	color : black;
+	cursor : pointer;
+	font : bold 14px "Malgun Gothic";
+	border : 1px solid magenta;
+	background : magenta;
+	border-radius : 10px;
+	letter-spacing : 2px;
+}
+div.Button.btn_TF_Save
+{
+	color : white;
+	border-radius : 10px;
+	background : #ffffff;
+	background : linear-gradient(#ffffff 0%,#635fd7 20%,#4a4ae2 80%,#2e38f9 100%);
+	border : 1px solid white;
+	font : bold 14px "Malgun Gothic";
+}
+div.Button.btn_TF_DELETE
+{
+	border : 2px solid #ee1b22;
+	background : #ffffff;
+	background : linear-gradient(#ffffff 0%,#ed1b24 20%,#ed1b24 80%,#980903 100%);
+	border-radius : 10px;
+	font : bold 14px "Malgun Gothic";
+	color : #ffffff;
+	letter-spacing : 1px;
+}
+div.Combo
+{
+	border : 1px solid gray;
+	background : #ffffff;
+}
+div.Combo .dropbutton
+{
+	background : pink;
+}
+div.Button.btn_TF_Home
+{
+	border : 2px solid green;
+	border-radius : 10px;
+	background : #ffffff;
+	background : linear-gradient(#ffffff 0%,#75ff75 20%,#00f400 80%,#008000 100%) green;
+	color : white;
+	font : bold 14px "Malgun Gothic";
+	letter-spacing : 1px;
+}
+div.ListBox
+{
+	border : 1px solid #c4c4c4;
+	background : #ffffff;
+}
+div.TextArea
+{
+	border : 1px solid #c4c4c4;
+	background : #ffffff;
+}
+div.TextArea .nexacontentsbox
+{
+	white-space : pre-wrap;
+	word-wrap : break-word;
+	word-break : break-all;
+}
+div.TextArea .nexatextarea
+{
+	white-space : pre-wrap;
+	word-wrap : break-word;
+	word-break : break-all;
+	padding : 10px;
+}
+div.ListBox .listboxitem
+{
+	border : 1px solid red;
+}
+div.Calendar
+{
+	border : 2px solid #c4c4c4;
+}
+div.Form
+{
+	font : 12px "Verdana","Malgun Gothic";
+	color : #262626;
+	background : white;
+}
+div.Calendar .calendaredit .nexainput
+{
+	padding : 8px;
+}
+div.Calendar .datepicker
+{
+	border : 2px solid #c4c4c4;
+}
+.DatePickerControl.popupCalendardatepicker.dummy
+{
+	border : 2px solid #c4c4c4;
+}
+div.Calendar .datepicker .head
+{
+	background : #15467f;
+}
+.DatePickerControl.popupCalendardatepicker.dummy .head
+{
+	background : #15467f;
+}
+div.Calendar .datepicker .head .yearstatic
+{
+	color : white;
+}
+.DatePickerControl.popupCalendardatepicker.dummy .head .yearstatic
+{
+	color : white;
+}
+div.Calendar .datepicker .head .monthstatic
+{
+	color : white;
+}
+.DatePickerControl.popupCalendardatepicker.dummy .head .monthstatic
+{
+	color : white;
+}
+div.Calendar .datepicker .head .yearspin
+{
+	color : white;
+}
+.DatePickerControl.popupCalendardatepicker.dummy .head .yearspin
+{
+	color : white;
+}
+div.Calendar .datepicker .head .monthspin
+{
+	color : white;
+}
+.DatePickerControl.popupCalendardatepicker.dummy .head .monthspin
+{
+	color : white;
+}
+div.Calendar .datepicker .body
+{
+	background : white;
+}
+.DatePickerControl.popupCalendardatepicker.dummy .body
+{
+	background : white;
+}
+div.Calendar .datepicker .body .weekband
+{
+	background : #e9e9e9;
+}
+.DatePickerControl.popupCalendardatepicker.dummy .body .weekband
+{
+	background : #e9e9e9;
+}
+div.Spin
+{
+	border : 2px solid #c4c4c4;
+}
+div.Edit
+{
+	border : 1px solid #c4c4c4;
+	background : #ffffff;
+}
+div.Grid
+{
+	background : #ffffff;
+	border-top : 1px solid #434343;
+	border-right : 1px solid #434343;
+	border-bottom : 1px solid #434343;
+	border-left : 1px solid #434343;
+}
+div.Grid .body
+{
+	background : #fafafa;
+	border : 1px solid #d8d9da;
+}
+div.Grid .body .row .cell
+{
+	color : black;
+	border : 1px solid #c4c4c4;
+}
+div.Grid .head
+{
+	background : #e4e4e4;
+	border : 1px solid #c6c7c9;
+}
+div.Grid .summary
+{
+	background : #f3f5f7;
+	border : 1px solid #d8d9da;
+}
+div.Grid .summary .row .cell
+{
+	border : 1px solid #c4c4c4;
+}
+div.Grid .summary .row .cell > .nexacontentsbox
+{
+	text-align : center;
+	background-position-x : center;
+}
+div.Grid .head .row .cell
+{
+	border : 1px solid #c4c4c4;
+}
+div.Grid .head .row .cell > .nexacontentsbox
+{
+	text-align : center;
+	background-position-x : center;
+}
+div.Grid .head .row .cell .subcell > .nexacontentsbox
+{
+	text-align : center;
+	background-position-x : center;
+}
+div.Grid.grd_WF_HP .head .row .cell
+{
+	background : purple;
+}
+div.Grid .body .row .cell.cell_WF_BY.dummy.dummy.dummy
+{
+	background : yellow;
+}
+div.Grid .body .row .cell.cell_WF_BY.dummy.dummy.dummy.oddcell
+{
+	background : yellow;
+}
+div.GridCellControl .cellbutton
+{
+	border : 1px solid red;
+	background : pink;
+}
+div#nexacontainer .Calendar .datepicker .body .dayitem[status=mouseover]
+{
+	background : #e9e9e9;
+}
+#nexacontainer .DatePickerControl.popupCalendardatepicker.dummy .body .dayitem[status=mouseover]
+{
+	background : #e9e9e9;
+}
+div#nexacontainer .Grid .body .row .cell[status=mouseover]
+{
+	background : #dbdbdb;
+}
+div#nexacontainer .Grid .body .row .cell.oddcell[status=mouseover]
+{
+	background : #dbdbdb;
+}
+div#nexacontainer .Button[userstatus=pushed]
+{
+	background : white;
+}
+div#nexacontainer .Calendar .datepicker .body .weekitem[userstatus=sunday]
+{
+	color : #e03c0a;
+}
+#nexacontainer .DatePickerControl.popupCalendardatepicker.dummy .body .weekitem[userstatus=sunday]
+{
+	color : #e03c0a;
+}
+div#nexacontainer .Calendar .datepicker .body .weekitem[userstatus=saturday]
+{
+	color : #2a689c;
+}
+#nexacontainer .DatePickerControl.popupCalendardatepicker.dummy .body .weekitem[userstatus=saturday]
+{
+	color : #2a689c;
+}
+div#nexacontainer .Calendar .datepicker .body .dayitem[userstatus=selected]
+{
+	background : #3078b4;
+}
+#nexacontainer .DatePickerControl.popupCalendardatepicker.dummy .body .dayitem[userstatus=selected]
+{
+	background : #3078b4;
+}
+div#nexacontainer .Calendar .datepicker .body .dayitem[userstatus=today]
+{
+	background : #c0d6e8;
+}
+#nexacontainer .DatePickerControl.popupCalendardatepicker.dummy .body .dayitem[userstatus=today]
+{
+	background : #c0d6e8;
+}
+div#nexacontainer .Calendar .datepicker .body .dayitem[userstatus=trailingday]
+{
+	color : #e9e9e9;
+}
+#nexacontainer .DatePickerControl.popupCalendardatepicker.dummy .body .dayitem[userstatus=trailingday]
+{
+	color : #e9e9e9;
+}
+div#nexacontainer .Edit[userstatus=nulltext]
+{
+	color : green;
+}
+div#nexacontainer .MaskEdit[userstatus=invalidtext]
+{
+	color : red;
+	background : white;
+}
+div#nexacontainer .Grid .body .row .cell[userstatus=selected]
+{
+	background : #fff2cc;
+}

@@ -1,0 +1,54 @@
+마이플랫폼V3.1L 기본과정 교육자료입니다. 
+http://edu.tobesoft.com/EduMaterials/MP/Education(V3.1L)-B.zip
+
+마이플랫폼V3.2 기본과정 교육자료입니다. 
+http://edu.tobesoft.com/EduMaterials/MP/MiPlatform+V3.2+기본과정+교육자료.zip
+
+마이플랫폼V3.3 디자인 교육자료입니다. 
+http://edu.tobesoft.com/EduMaterials/MP/MiPlatform+3.3+Design+EDU.zip
+
+XPLATFORM 9.1 교육자료 
+http://edu.tobesoft.com/EduMaterials/XP/XPLATFORM교육자료.zip
+
+XPLATFORM 9.2 교육자료 
+http://edu.tobesoft.com/EduMaterials/XP/XPLATFORM_EDU(V9.2).zip
+
+XPLATFORM 9.2 교육자료(영문번역본) 
+http://edu.tobesoft.com/EduMaterials/XP/XPLATFORM_EDU(V9.2)_ENG.zip
+
+XPLATFORM 9.2 디자인 교육자료 
+http://edu.tobesoft.com/EduMaterials/XP/XPLATFORM+9.2+Design+EDU.zip
+
+넥사크로플랫폼14 교육자료 
+http://edu.tobesoft.com/EduMaterials/NP14/nexacro_14_edu.zip
+
+넥사크로플랫폼14 디자인 교육자료 
+http://edu.tobesoft.com/EduMaterials/NP14/Nexacro+Platform+14+Design+EDU.zip
+
+넥사크로플랫폼17 교육자료 17.0.0.1601 이후 
+http://edu.tobesoft.com/EduMaterials/NP17/nexacro17_Education_Materials.zip
+
+넥사크로플랫폼17 교육자료 17.1
+http://edu.tobesoft.com/EduMaterials/NP17/nexacro17.1_Education_Materials.zip
+
+넥사크로플랫폼17.1 운영자교육
+http://edu.tobesoft.com/EduMaterials/NP17/넥사크로17.1-운영자교육-교안.zip
+http://edu.tobesoft.com/EduMaterials/NP17/넥사크로17.1-운영자교육-교육자료.zip
+
+넥사크로플랫폼17.1 실무활용 
+http://edu.tobesoft.com/EduMaterials/NP17/넥사크로17.1-실무교육-Schedule.pdf
+http://edu.tobesoft.com/EduMaterials/NP17/넥사크로17.1-EduSys17.1.zip
+
+넥사크로플랫폼17.1 모바일
+http://edu.tobesoft.com/EduMaterials/NP17/mobile171.zip
+
+
+넥사크로플랫폼17 디자인 교육자료 17.1
+http://edu.tobesoft.com/EduMaterials/NP17/Nexacro+17+퍼블리싱+기본과정_교육생.pdf
+http://edu.tobesoft.com/EduMaterials/NP17/Nexacro+17+퍼블리싱+기본과정.zip
+
+XPUSH  교육자료 17.1
+http://edu.tobesoft.com/EduMaterials/Etc/EduXPUSH17.1.zip
+
+넥사크로N 교육자료 
+http://edu.tobesoft.com/EduMaterials/NPN/Nexacro_Education_Materials.zip

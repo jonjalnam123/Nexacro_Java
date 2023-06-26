@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="ReSize" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <Button id="btn00" taborder="0" text="btn00" left="150" top="56" width="9.38%" height="21"/>
+        <Button id="btn01" taborder="1" text="btn01" left="btn00:50" top="56" width="120" height="21"/>
+        <Static id="sta00" taborder="2" text="sta00" left="156" top="104" width="34" height="14"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[//퍼센트 화면에 따라 달라짐
+// 픽셀 화면에 따라 안달라짐
+// 어레인지 먼트 작대기 긋는거
+// width , height 안에 데이터에 맞게 사이즈 맞춰 준다 얼라인]]></Script>
+  </Form>
+</FDL>

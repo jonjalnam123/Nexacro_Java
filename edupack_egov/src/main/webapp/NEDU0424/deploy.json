@@ -1,0 +1,51 @@
+﻿{
+	"SetupManager" : {
+		"updatetype" : "server",
+		"outputpath" : "C:\\Users\\CNCNetworks\\Documents\\TOBESOFT\\Nexacro N\\deploy\\NEDU0424\\_windows_",
+		"externalsetupresource" : "True",
+		"resourcepath" : "C:\\Users\\CNCNetworks\\Documents\\TOBESOFT\\Nexacro N\\deploy\\NEDU0424\\_windows_",
+		"bootstrapjson" : "http://localhost:8088/edupack_egov/NEDU0424/_windows_/start.json",
+		"programname" : "FrontNEDU0424",
+		"installlocation" : "TOBESOFT\\Nexacro N\\21\\NEDU0424\\",
+		"updatebrowser" : "true",
+		"applicationkey" : "FrontNEDU0424",
+		"buildtype" : "x86,x64",
+		"installmode" : "Default",
+		"autoupdate" : "Auto",
+		"shortcutinstalltype" : "Select at Install time",
+		"splashshowmessage" : "Default",
+		"Windows_x86" : {
+			"setupfilename" : "FrontNexacroN_SetupRuntime_x86",
+			"enginesetupkey" : "506B38F2-11E4-4363-9096-38D269508FD3",
+			"setupversion" : "21.0.0.1400",
+			"originalfile" : "C:\\Program Files (x86)\\TOBESOFT\\Nexacro N\\SDK\\21.0.0\\SetupRuntime\\NexacroN_SetupRuntime_x86.exe",
+			"SetupRuntime_x86" : "True"
+		},
+		"Windows_x64" : {
+			"setupfilename" : "FrontNexacroN_SetupRuntime_x64",
+			"enginesetupkey" : "EE2A56F7-D8C4-407D-94A9-9748131FFF46",
+			"setupversion" : "21.0.0.1400",
+			"originalfile" : "C:\\Program Files (x86)\\TOBESOFT\\Nexacro N\\SDK\\21.0.0\\SetupRuntime\\NexacroN_SetupRuntime_x64.exe",
+			"SetupRuntime_x64" : "True"
+		},
+		"Windows_XP" : {
+			"SetupRuntime_XP" : "False"
+		}
+	},
+	"AppBuilderManager" : {
+		"savelogininfo" : "False",
+		"keeplogin" : "False",
+		"setupruntime_version" : "21.0.0.1400",
+		"merge" : "true",
+		"compress" : "true",
+		"baselib" : [
+			"./nexacrolib/framework/Framework.json",
+			"./nexacrolib/resources/Resource.json",
+			"./nexacrolib/component/CompBase.json",
+			"./nexacrolib/component/ComComp.json",
+			"./nexacrolib/component/Grid.json",
+			"./nexacrolib/component/ListView.json",
+			"./nexacrolib/component/DeviceAPI.json"
+		]
+	}
+}
