@@ -33,7 +33,7 @@ import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
  * 2022. 04. 20.		Education	최초작성
  */
 
-@Service("eduCommService")
+@Service("eduCommService") 
 public class EduCommServiceImpl extends EgovAbstractServiceImpl implements EduCommService {
 	@Resource(name ="eduCommMapper")
 	EduCommMapper eduCommMapper;

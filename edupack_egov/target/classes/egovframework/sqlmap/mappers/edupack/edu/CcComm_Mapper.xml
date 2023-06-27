@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pagingComm">
+
+	<sql id="pagingFront">
+    select b.*
+	 from
+	   ( select @rownum:=@rownum+1 as rownum, a.*
+      from(	
+	</sql>
+
+	<sql id="pagingEnd">
+	  limit #{records} offset #{recordsOffset}) a,
+	  (select @rownum:=0) as r
+	 ) b
+	</sql>
+
+</mapper>

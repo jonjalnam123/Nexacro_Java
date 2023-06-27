@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.edupack.edu.service.impl.mybatis.EduEmpMapper">
+
+	
+      
+    
+	<!-- VO 데이터 조회  -->  
+    <resultMap id="empvo" type="com.edupack.edu.vo.EduEmpCamelVO">
+        <result property="emplId" column="EMPL_ID" />
+        <result property="fullName" column="FULL_NAME" />
+        <result property="deptCd" column="DEPT_CD" />
+        <result property="posCd" column="POS_CD" />
+        <result property="hireDate" column="HIRE_DATE" />
+        <result property="salary" column="SALARY" />
+        <result property="gender" column="GENDER" />
+        <result property="married" column="MARRIED" />
+        <result property="memo" column="MEMO" />
+    </resultMap>    
+ 	<select id="selectEmpVoList" parameterType="com.edupack.edu.vo.EduSearchVO" resultMap="empvo">
+         SELECT A.EMPL_ID   AS EMPL_ID, 
+                A.FULL_NAME AS FULL_NAME, 
+                A.DEPT_CD   AS DEPT_CD, 
+                A.POS_CD    AS POS_CD, 
+                A.HIRE_DATE AS HIRE_DATE, 
+                A.SALARY    AS SALARY,
+                A.GENDER    AS GENDER,
+                A.MARRIED   AS MARRIED,
+                A.MEMO      AS MEMO
+           FROM TB_EMP A
+          WHERE 1=1
+    </select>		
+	
+</mapper>
