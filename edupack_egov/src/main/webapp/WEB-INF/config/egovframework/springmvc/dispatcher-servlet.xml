@@ -17,6 +17,7 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>																									   																										  
     </context:component-scan>
     
+    
     <!--  annotation-driven 태그내부에 정의 -->
     <!--
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
@@ -70,7 +71,6 @@
         </property>
     </bean>
 	<!-- /For Pagination Tag -->
-
     <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/>
     
     
